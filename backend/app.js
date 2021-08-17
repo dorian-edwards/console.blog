@@ -1,10 +1,9 @@
 require('dotenv').config({ path: './config.env' })
 const express = require('express')
+const userRouter = require('./routes/user.routes')
 
 const app = express()
 
-app.get('/', (req, res) => res.send('hey'))
-
-//  8/17 => Write User routes...
+app.use('/users', userRouter)
 
 module.exports = app
