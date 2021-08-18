@@ -1,9 +1,15 @@
+const User = require('../models/user')
+
 exports.fetchAll = async (req, res) => {
-  res.status(200).json({ status: 'success', data: 'Fetch all users' })
+  const users = await User.find()
+  res
+    .status(200)
+    .json({ status: 'success', results: users.length, data: users })
 }
 
 exports.create = async (req, res) => {
-  res.status(201).json({ status: 'success', data: req.body })
+  const newUser = await User.create({ ...req.body })
+  res.status(201).json({ status: 'success', data: newUser })
 }
 
 exports.fetchById = async (req, res) => {
@@ -20,7 +26,9 @@ exports.update = async (req, res) => {
 }
 
 exports.delete = async (req, res) => {
-  res
-    .status(204)
-    .json({ status: 'success', data: `Delete user: ${req.params.id}` })
+  const user = await User.findByIdAndDelete(req.params.id)
+  if (!user) {
+    return res.status(400).json({ status: 'fail', message: 'User not found' })
+  }
+  res.status(200).json({ status: 'success', data: user })
 }
