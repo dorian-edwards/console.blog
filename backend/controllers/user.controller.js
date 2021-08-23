@@ -7,9 +7,13 @@ exports.fetchAll = async (req, res) => {
     .json({ status: 'success', results: users.length, data: users })
 }
 
-exports.create = async (req, res) => {
-  const newUser = await User.create({ ...req.body })
-  res.status(201).json({ status: 'success', data: newUser })
+exports.create = async (req, res, next) => {
+  try {
+    const newUser = await User.create({ ...req.body })
+    res.status(201).json({ status: 'success', data: newUser })
+  } catch (err) {
+    next(err)
+  }
 }
 
 exports.fetchById = async (req, res) => {
