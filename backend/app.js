@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/v1/users', userRouter)
 app.all('*', (req, res, next) => {
-  next(new AppError(`Cannot ${req.method} ${req.originalUrl}`, 404))
+  next(new AppError(`Can't ${req.method} ${req.originalUrl}`, 404))
 })
 
 app.use(errorHandler)

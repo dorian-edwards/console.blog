@@ -7,5 +7,6 @@ dbConnect()
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
-  console.log(`Server listening on http://localhost:${port}`)
+  console.log(`Server listening on http://localhost:${port}
+Running in: ${process.env.NODE_ENV}`)
 })
