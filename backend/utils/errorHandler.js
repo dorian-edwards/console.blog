@@ -23,6 +23,15 @@ const handleValidationError = (err) => {
   return new AppError(message.join(', '), 400)
 }
 
+const handleExpressValidatorError = (err) => {
+  const message = []
+  err.forEach((error) => {
+    message.push(error.msg)
+  })
+
+  return new AppError(message.join(', '), 400)
+}
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -39,8 +48,8 @@ const sendErrorProd = (err, res) => {
     })
   }
 
-  res.status(err.statusCode).json({
-    status: err.status,
+  res.status(500).json({
+    status: 'Error',
     message: `🤦🏿‍♂️ Internal Server Error`,
   })
 
@@ -62,6 +71,7 @@ module.exports = (err, req, res, next) => {
   if (err.name === 'ValidationError') error = handleValidationError(error)
   if (err.name === 'CastError') error = handleCastError(error)
   if (err.code === 11000) error = handleDuplicateError(error)
+  if (Array.isArray(err)) error = handleExpressValidatorError(err)
 
   sendErrorProd(error, res)
 }

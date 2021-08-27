@@ -1,6 +1,7 @@
-const User = require('../models/user')
+const { validationResult } = require('express-validator')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
+const User = require('../models/user')
 
 exports.fetchAll = catchAsync(async (req, res, next) => {
   const users = await User.find()
@@ -12,8 +13,11 @@ exports.fetchAll = catchAsync(async (req, res, next) => {
 })
 
 exports.create = catchAsync(async (req, res, next) => {
-  const newUser = await User.create({ ...req.body })
-  res.status(201).json({ status: 'success', data: newUser })
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return next(errors.array())
+  }
+  res.send('success!')
 })
 
 exports.fetchById = catchAsync(async (req, res, next) => {
