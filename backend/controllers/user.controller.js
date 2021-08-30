@@ -17,7 +17,12 @@ exports.create = catchAsync(async (req, res, next) => {
   if (!errors.isEmpty()) {
     return next(errors.array())
   }
-  res.send('success!')
+  const user = await User.create({ ...req.body })
+  if (!user) return next()
+  res.status(200).json({
+    status: 'success',
+    user,
+  })
 })
 
 exports.fetchById = catchAsync(async (req, res, next) => {
@@ -30,7 +35,9 @@ exports.fetchById = catchAsync(async (req, res, next) => {
 })
 
 exports.update = catchAsync(async (req, res, next) => {
-  const user = await User.findByIdAndUpdate(req.params.id, req.body)
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  })
   res.status(201).json({ status: 'success', data: user })
 })
 
