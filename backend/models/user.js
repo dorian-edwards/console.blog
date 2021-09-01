@@ -34,6 +34,7 @@ const userSchema = new Schema({
     trim: true,
     required: [true, 'Please enter a password at least 6 characters in length'],
     minLength: [6, 'Please enter a password at least 6 characters in length'],
+    select: false,
   },
   confirmPassword: String,
 })
@@ -47,6 +48,10 @@ userSchema.pre('save', function (next) {
     this.confirmPassword = undefined
     next()
   })
+})
+
+userSchema.virtual('fullname').get(function () {
+  return `${this.firstname} ${this.lastName}`
 })
 
 module.exports = model('User', userSchema)
