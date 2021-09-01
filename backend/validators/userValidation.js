@@ -1,7 +1,7 @@
 const { body } = require('express-validator')
 
-const userValidation = [
-  body('email').isEmail().withMessage('Please provide a valid email address'),
+exports.userValidation = [
+  body('email').isEmail().withMessage('Please enter a valid email address'),
   body('firstName')
     .not()
     .isEmpty()
@@ -10,7 +10,7 @@ const userValidation = [
   body('username').not().isEmpty().withMessage('Please enter a username'),
   body('password')
     .isLength({ min: 6 })
-    .withMessage('Please enter a password at least 6 characters long'),
+    .withMessage('Please enter a password at least 6 characters in length'),
   body('confirmPassword')
     .custom((val, { req }) => {
       if (val !== req.body.password) {
@@ -21,4 +21,25 @@ const userValidation = [
     .withMessage('Passwords do not match'),
 ]
 
-module.exports = userValidation
+exports.checkEmail = async (req) => {
+  await body('email')
+    .isEmail()
+    .withMessage('Please enter a valid email address')
+    .run(req)
+}
+
+exports.checkPassword = async (req) => {
+  await body('password')
+    .isLength({ min: 6 })
+    .withMessage('Please enter a password at least 6 characters in length')
+    .run(req)
+  await body('confirmPassword')
+    .custom((val) => {
+      if (val !== req.body.password) {
+        return false
+      }
+      return true
+    })
+    .withMessage('Passwords do not match')
+    .run(req)
+}

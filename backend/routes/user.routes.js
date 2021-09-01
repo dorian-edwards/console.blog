@@ -1,5 +1,5 @@
 const express = require('express')
-const userValidation = require('../validators/userValidation')
+const { userValidation } = require('../validators/userValidation')
 const userController = require('../controllers/user.controller')
 
 const router = express.Router()
@@ -11,7 +11,7 @@ router
 
 router
   .route('/:id')
-  .get(userController.fetchById)
+  .get(userController.fetchSingle)
   .patch(userController.update)
   .delete(userController.delete)
 

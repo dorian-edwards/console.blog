@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator')
+const { checkEmail, checkPassword } = require('../validators/userValidation')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const User = require('../models/user')
@@ -25,7 +26,7 @@ exports.create = catchAsync(async (req, res, next) => {
   })
 })
 
-exports.fetchById = catchAsync(async (req, res, next) => {
+exports.fetchSingle = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id)
   if (!user) return next(new AppError('User not found', 404))
   res.status(200).json({
@@ -35,10 +36,23 @@ exports.fetchById = catchAsync(async (req, res, next) => {
 })
 
 exports.update = catchAsync(async (req, res, next) => {
-  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  })
-  res.status(201).json({ status: 'success', data: user })
+  const { id } = req.params
+  const user = await User.findById(id)
+  if (!user) return next(new AppError('User not found', 404))
+
+  // if email is contained in req.body, will need to verify it.
+  // if password is in body, will need to confirm that it, and confirm password, match
+
+  if (req.body.email) await checkEmail(req)
+  if (req.body.password) await checkPassword(req)
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return next(errors.array())
+  }
+
+  user.set({ ...req.body }) // <= seems to be the only way I can change isModified to true so the hashing function will run in the pre hook
+  await user.save() // <= triggers my pre hook which doesn't run on findOneAndUpdate
+  res.status(204).json({ status: 'success', data: user })
 })
 
 exports.delete = catchAsync(async (req, res, next) => {
