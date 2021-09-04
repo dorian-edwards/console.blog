@@ -54,4 +54,8 @@ userSchema.virtual('fullname').get(function () {
   return `${this.firstname} ${this.lastName}`
 })
 
+userSchema.methods.checkPassword = async function (password) {
+  return await bcrypt.compare(password, this.password)
+}
+
 module.exports = model('User', userSchema)
