@@ -32,6 +32,12 @@ const handleExpressValidatorError = (err) => {
   return new AppError(message.join(', '), 400)
 }
 
+const handleJWTError = () =>
+  new AppError("🥴 oops! Something's amiss, please log in again", 500)
+
+const handleJWTExpiration = () =>
+  new AppError(`Your login has expired, please login again`, 401)
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -68,10 +74,17 @@ module.exports = (err, req, res, next) => {
     return sendErrorDev(error, res)
   }
 
+  // handle mongoose errors
   if (err.name === 'ValidationError') error = handleValidationError(error)
   if (err.name === 'CastError') error = handleCastError(error)
   if (err.code === 11000) error = handleDuplicateError(error)
+
+  // handle express validator errors
   if (Array.isArray(err)) error = handleExpressValidatorError(err)
+
+  // handle jwt errors
+  if (err.name === 'JsonWebTokenError') error = handleJWTError()
+  if (err.name === 'TokenExpiredError') error = handleJWTExpiration()
 
   sendErrorProd(error, res)
 }

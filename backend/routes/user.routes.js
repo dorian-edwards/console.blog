@@ -10,7 +10,7 @@ router.post('/login', authController.login)
 
 router
   .route('/')
-  .get(userController.fetchAll)
+  .get(authController.validate, userController.fetchAll)
   .post(userValidation, userController.create)
 
 router

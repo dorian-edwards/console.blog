@@ -37,6 +37,7 @@ const userSchema = new Schema({
     select: false,
   },
   confirmPassword: String,
+  passwordUpdated: Date,
 })
 
 userSchema.pre('save', function (next) {
@@ -46,6 +47,7 @@ userSchema.pre('save', function (next) {
 
     this.password = hash
     this.confirmPassword = undefined
+    this.passwordUpdated = Date.now()
     next()
   })
 })
@@ -56,6 +58,11 @@ userSchema.virtual('fullname').get(function () {
 
 userSchema.methods.checkPassword = async function (password) {
   return await bcrypt.compare(password, this.password)
+}
+
+userSchema.methods.changedPasswordAfter = function (issueTime) {
+  const updatedAt = Math.round(this.passwordUpdated.getTime() / 1000)
+  return updatedAt > issueTime
 }
 
 module.exports = model('User', userSchema)
