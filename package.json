@@ -1,26 +1,25 @@
 {
   "name": "console.blog",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "engines": {
     "node": ">=8.0.0"
   },
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "start": "npx nodemon backend/server.js",
-    "prod": "NODE_ENV=production npx nodemon backend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "dorian edwards",
-  "license": "ISC",
+  "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.7",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3",
+    "web-vitals": "^1.1.2"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
@@ -33,5 +32,31 @@
     "eslint-plugin-react": "^7.24.0",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "prod": "NODE_ENV=production npx nodemon backend/server.js",
+    "dev": "npx nodemon backend/server.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
