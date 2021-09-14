@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const signToken = require('../utils/signToken')
 const catchAsync = require('../utils/catchAsync')
 const User = require('../models/user')
+const Post = require('../models/post')
 const AppError = require('../utils/appError')
 
 exports.signup = catchAsync(async (req, res, next) => {
@@ -48,7 +49,8 @@ exports.validate = catchAsync(async (req, res, next) => {
 
   const [bearer, token] = [...authorization.split(' ')]
 
-  if (!authorization || bearer !== 'Bearer' || !token) {
+  // the token === 'null' is a workaround for a postman bug for now
+  if (!authorization || bearer !== 'Bearer' || !token || token === 'null') {
     return next(
       new AppError('Authorization required to access this resource...', 401)
     )
@@ -74,4 +76,29 @@ exports.validate = catchAsync(async (req, res, next) => {
       next()
     })
     .catch((err) => next(err))
+})
+
+exports.checkUser = catchAsync(async (req, res, next) => {
+  // Gets a user ID in the req object
+  const { _id: userId } = req.user
+  const { id: targetId } = req.params
+  if (userId.toString() === targetId) return next()
+  next(new AppError('You do not have permission for this action 🥴', 403))
+})
+
+exports.checkAuthor = catchAsync(async (req, res, next) => {
+  // get post, get post author id
+  const post = await Post.findById(req.params.id)
+  if (!post) return next(new AppError('Post not found', 404))
+
+  const author = await User.findById(post.author._id)
+  if (!author) return next(new AppError('Author not found', 404))
+  const { _id: authorId } = author
+  const { id: userId } = req.user
+
+  // check loggedin users id to post author
+  if (authorId.toString() !== userId)
+    return next(new AppError('You do not have permission for this action', 403))
+
+  next()
 })

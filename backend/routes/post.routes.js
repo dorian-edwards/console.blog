@@ -1,14 +1,26 @@
 const express = require('express')
 const postController = require('../controllers/post.controller')
+const authController = require('../controllers/auth.controller')
 
 const router = express.Router()
 
-router.route('/').get(postController.fetchAll).post(postController.create)
+router
+  .route('/')
+  .get(postController.fetchAll)
+  .post(authController.validate, postController.create)
 
 router
   .route('/:id')
   .get(postController.fetchSingle)
-  .patch(postController.update)
-  .delete(postController.delete)
+  .patch(
+    authController.validate,
+    authController.checkAuthor,
+    postController.update
+  )
+  .delete(
+    authController.validate,
+    authController.checkAuthor,
+    postController.delete
+  )
 
 module.exports = router

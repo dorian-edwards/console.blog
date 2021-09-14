@@ -32,8 +32,11 @@ const handleExpressValidatorError = (err) => {
   return new AppError(message.join(', '), 400)
 }
 
-const handleJWTError = () =>
-  new AppError("🥴 oops! Something's amiss, please log in again", 500)
+const handleJWTError = (err) => {
+  // eslint-disable-next-line no-console
+  console.log(err)
+  return new AppError("🥴 oops! Something's amiss, please log in again", 500)
+}
 
 const handleJWTExpiration = () =>
   new AppError(`Your login has expired, please login again`, 401)
@@ -83,7 +86,7 @@ module.exports = (err, req, res, next) => {
   if (Array.isArray(err)) error = handleExpressValidatorError(err)
 
   // handle jwt errors
-  if (err.name === 'JsonWebTokenError') error = handleJWTError()
+  if (err.name === 'JsonWebTokenError') error = handleJWTError(err)
   if (err.name === 'TokenExpiredError') error = handleJWTExpiration()
 
   sendErrorProd(error, res)

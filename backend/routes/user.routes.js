@@ -10,13 +10,15 @@ router.post('/login', authController.login)
 
 router
   .route('/')
-  .get(authController.validate, userController.fetchAll)
-  .post(userValidation, userController.create)
+  .all(authController.validate)
+  .get(userController.fetchAll)
+  .post(userController.create)
 
 router
   .route('/:id')
+  .all(authController.validate)
   .get(userController.fetchSingle)
-  .patch(userController.update)
-  .delete(userController.delete)
+  .patch(authController.checkUser, userController.update)
+  .delete(authController.checkUser, userController.delete)
 
 module.exports = router

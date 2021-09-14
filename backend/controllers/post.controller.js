@@ -21,7 +21,10 @@ exports.create = catchAsync(async (req, res, next) => {
 })
 
 exports.fetchSingle = catchAsync(async (req, res, next) => {
-  const post = await Post.findById(req.params.id)
+  const post = await Post.findById(req.params.id).populate({
+    path: 'author',
+    select: 'username',
+  })
   if (!post) return next(new AppError('Post not found', 404))
   res.status(200).json({ status: 'success', data: post })
 })
