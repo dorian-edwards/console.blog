@@ -1,4 +1,5 @@
 const Post = require('../models/post')
+const User = require('../models/user')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 
@@ -15,16 +16,22 @@ exports.fetchAll = catchAsync(async (req, res, next) => {
 })
 
 exports.create = catchAsync(async (req, res, next) => {
-  const post = await Post.create({ ...req.body })
+  const { id } = req.user
+  const user = await User.findById(id)
+  if (!user) return next(new AppError('User not found', 404))
+
+  const post = await Post.create({ ...req.body, author: id })
   if (!post) return next()
   res.status(200).json({ message: 'status', data: post })
 })
 
 exports.fetchSingle = catchAsync(async (req, res, next) => {
-  const post = await Post.findById(req.params.id).populate({
-    path: 'author',
-    select: 'username',
-  })
+  const post = await Post.findById(req.params.id)
+    .populate({
+      path: 'author',
+      select: 'username',
+    })
+    .exec()
   if (!post) return next(new AppError('Post not found', 404))
   res.status(200).json({ status: 'success', data: post })
 })
