@@ -44,13 +44,17 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.validate = catchAsync(async (req, res, next) => {
   // 1) validate authorization header
-
   const { authorization } = req.headers
+
+  if (!authorization || authorization.split(' ' !== 2))
+    return next(
+      new AppError('Authorization required to access this resource...', 401)
+    )
 
   const [bearer, token] = [...authorization.split(' ')]
 
   // the token === 'null' is a workaround for a postman bug for now
-  if (!authorization || bearer !== 'Bearer' || !token || token === 'null') {
+  if (bearer !== 'Bearer' || token === 'null') {
     return next(
       new AppError('Authorization required to access this resource...', 401)
     )

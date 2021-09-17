@@ -1,0 +1,29 @@
+/* Resets */
+li {
+  list-style: none;
+}
+
+.mbl-wrap {
+  width: 95%;
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+#subMenu {
+  position: absolute;
+  background: #333;
+  color: #f7f7f7;
+  top: 45px;
+  right: 0;
+  width: 50vw;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom-left-radius: 3px;
+}
+
+#subMenu li {
+  font-size: 24px;
+  margin: 15px;
+}

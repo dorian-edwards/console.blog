@@ -1,0 +1,17 @@
+.dsk-wrap {
+  width: 95%;
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+#navMenu {
+  color: #f7f7f7;
+  font-size: 24px;
+}
+
+#navMenu li {
+  display: inline-block;
+  margin: 0 10px;
+}

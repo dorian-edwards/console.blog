@@ -1,7 +1,10 @@
+import Nav from './Components/Nav/Nav'
+import './App.css'
+
 function App() {
   return (
     <div>
-      <div>Breh y tho?</div>
+      <Nav />
     </div>
   )
 }

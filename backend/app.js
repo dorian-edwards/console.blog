@@ -1,6 +1,7 @@
 require('dotenv').config({ path: './config.env' })
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const userRouter = require('./routes/user.routes')
 const postRouter = require('./routes/post.routes')
 const errorHandler = require('./utils/errorHandler')
@@ -9,6 +10,7 @@ const AppError = require('./utils/appError')
 const app = express()
 
 app.use(morgan('tiny'))
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
