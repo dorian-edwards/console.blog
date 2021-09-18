@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Raleway', sans-serif;
 }
 
 html {
@@ -10,4 +11,12 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+:root {
+  --primary-dark: #2d3142;
+  --secondary-dark: #4f5d75;
+  --primary-light: #ffffff;
+  --secondary-light: #bfc0c0;
+  --primary-accent: #ef8354;
 }
