@@ -46,7 +46,7 @@ exports.validate = catchAsync(async (req, res, next) => {
   // 1) validate authorization header
   const { authorization } = req.headers
 
-  if (!authorization || authorization.split(' ' !== 2))
+  if (!authorization || authorization.split(' ').length !== 2)
     return next(
       new AppError('Authorization required to access this resource...', 401)
     )
