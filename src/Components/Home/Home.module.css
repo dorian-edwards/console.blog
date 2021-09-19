@@ -1,0 +1,62 @@
+@import url('../../App.css');
+
+.container {
+  width: 95%;
+  max-width: 1100px;
+  margin: auto;
+  background: var(--secondary-light);
+  padding: 1rem 0.25rem;
+}
+
+#home_header {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+#home_header span {
+  border-bottom: 2px solid red;
+}
+
+.pst_lnk {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: #f7f7f7;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 3px;
+}
+
+.prfl_pic {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 100px;
+  background: black;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.prfl_pic img {
+  width: 100%;
+}
+
+.article_ttl {
+  font-size: 1.75rem;
+}
+
+.article_sum {
+  font-size: 1.25rem;
+}
+
+.date {
+  font-size: 0.9rem;
+}
+.article_lnk {
+  text-decoration: none;
+  color: inherit;
+}
+
+.article_lnk:hover {
+  color: var(--primary-accent);
+}
