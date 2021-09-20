@@ -29,6 +29,11 @@ const userSchema = new Schema({
     required: [true, 'Please enter a valid email address'],
     unique: true,
   },
+  img: {
+    type: String,
+    trim: true,
+    default: 'assets/img/default.png',
+  },
   password: {
     type: String,
     trim: true,

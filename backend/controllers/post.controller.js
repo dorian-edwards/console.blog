@@ -5,7 +5,7 @@ const AppError = require('../utils/appError')
 
 exports.fetchAll = catchAsync(async (req, res, next) => {
   const posts = await Post.find()
-    .populate({ path: 'author', select: 'username' })
+    .populate({ path: 'author', select: 'username img' })
     .exec()
   if (!posts) return next()
   res.status(200).json({
@@ -29,7 +29,7 @@ exports.fetchSingle = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id)
     .populate({
       path: 'author',
-      select: 'username',
+      select: 'username img',
     })
     .exec()
   if (!post) return next(new AppError('Post not found', 404))

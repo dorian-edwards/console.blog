@@ -1,70 +1,62 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import styles from './Home.module.css'
-import profile from '../../assets/img/default.png'
-
-const genericParagraph = `
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempus magna nisl, vitae fringilla lectus pellentesque nec. Suspendisse imperdiet nisl non orci tempor rhoncus. Sed in semper quam. In hac habitasse platea dictumst. Sed vulputate elementum nisl ac elementum. Ut vehicula nibh fringilla luctus viverra. Integer euismod, nisl fringilla finibus consectetur, metus turpis rutrum lorem, vitae consequat lorem arcu at nulla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus faucibus nisi ut molestie consequat. Ut at turpis eros. Ut vel lobortis nibh. Nullam hendrerit tellus a tristique malesuada. Sed rhoncus ligula at neque blandit, id tristique nisi elementum. In quis neque fermentum, elementum quam sit amet, imperdiet arcu.
-
-Mauris eget leo tellus. Ut cursus facilisis mi nec porta. Ut quis ultrices nisl. Aenean nulla arcu, facilisis eu tellus in, lacinia vehicula mauris. Curabitur quis lobortis augue. Nunc et imperdiet tellus. Duis efficitur nisi vitae lectus interdum, fermentum aliquet neque accumsan. Nam imperdiet eleifend porta. Donec id dictum urna, ullamcorper vestibulum ex. Nam porttitor nunc id sodales eleifend. Cras nec blandit odio. Aliquam eu ullamcorper orci. Nulla dignissim molestie nulla a sodales.
-
-Aenean malesuada id erat sit amet dignissim. Mauris eu lacinia ipsum, in ornare libero. Integer urna elit, molestie non sapien condimentum, tempor luctus est. Curabitur condimentum ullamcorper neque, in pellentesque arcu lobortis id. Sed non auctor diam, vel egestas sem. Donec vel imperdiet est, eu vehicula lectus. Phasellus vestibulum arcu sed dui ultrices gravida sed vel risus. Nunc molestie lobortis mi et dignissim. Duis egestas ex odio, a iaculis nunc fringilla et. Sed sed dignissim orci.
-
-Aliquam erat volutpat. Proin eget placerat est. Donec risus eros, lacinia eu ante eget, imperdiet malesuada ex. Donec ultricies, dolor sit amet congue molestie, metus eros pellentesque tellus, in sodales ante lectus ut turpis. Aenean sit amet nunc ut nulla condimentum tempor ut a risus. Nulla venenatis bibendum turpis quis dignissim. Nam vulputate luctus eleifend. Nunc vel purus convallis, eleifend neque in, ullamcorper justo. Etiam eleifend leo sit amet dolor interdum, in eleifend libero egestas. Sed auctor sapien nec orci suscipit laoreet. Duis tristique, sem id tincidunt commodo, velit arcu vestibulum erat, at rhoncus neque ex malesuada libero. Nulla volutpat tortor vitae libero fringilla interdum. Nam vitae dolor volutpat, fringilla felis vel, mollis arcu.
-
-Curabitur in massa ante. Maecenas congue sodales lacinia. Donec ultricies quis lectus nec luctus. Praesent sit amet eros mi. Donec sed erat est. Vivamus dapibus nisi id ex eleifend dapibus. Cras dapibus, arcu non aliquet dictum, diam enim sodales odio, sit amet sollicitudin lacus magna vitae nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. `
+import User from '../User/User'
 
 const data = [
   {
-    _id: '612fc68a37b9db0ee2fd5b05',
-    title: 'Post 1',
-    summary: "Here's a brief blurb about this article",
-    body: genericParagraph,
+    _id: '6147e01fb7236b149a3fb768',
+    title: 'New format One',
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non iaculis massa, non ultricies leo. Nam ullamcorper sodales nulla quis sollicitudin. Nam lacinia vitae mauris eget faucibus. Sed elementum nunc tortor, ut blandit neque porta a. Maecenas in turpis vitae ante tempor tristique et at dui. Nam tincidunt erat est, vitae mollis lectus pharetra vitae. In hac habitasse platea dictumst. Nunc faucibus varius pulvinar.Pellentesque eros ipsum, accumsan sit amet risus vel, vehicula fringilla justo. Suspendisse commodo aliquet ipsum, a mattis lorem pharetra sed. Sed cursus cursus vehicula. Suspendisse sollicitudin enim ipsum, et mollis felis vulputate sed. Curabitur dui ipsum, sagittis id dolor ut, condimentum auctor libero. Donec tempus felis nec dolor convallis bibendum. Nullam nec fermentum lacus, id imperdiet nibh. Nulla malesuada lacus sit amet porttitor iaculis. Duis suscipit nibh vitae congue aliquet. Cras auctor pellentesque dolor non accumsan. Nulla mollis felis at erat facilisis, quis imperdiet mi tincidunt. Pellentesque dignissim egestas ipsum, vel lacinia leo egestas vestibulum. Etiam et vulputate massa. Morbi dignissim risus ac lorem iaculis sollicitudin. Mauris placerat nibh purus, congue pulvinar nisl imperdiet vitae. Suspendisse vehicula, mauris in finibus volutpat, augue dui auctor magna, eget rhoncus lectus ipsum id est. Proin ligula odio, lacinia nec sem vitae, mollis laoreet dolor. Quisque arcu dolor, auctor ut aliquet sed, facilisis in felis. Nullam nec ipsum augue. Duis vestibulum diam magna, eget tempor tellus malesuada id. Sed enim dui, convallis sollicitudin dui vel, venenatis volutpat lorem.',
+    summary: 'Some stuff about lorem ipsum I suppose',
     author: {
-      _id: '612c478f7d99e8115c939cc5',
-      username: 'breh',
+      img: 'assets/img/default.png',
+      _id: '6147ccb5171c2110dc9d6f56',
+      username: 'febleh',
     },
-    createdAt: '2021-09-01T18:29:30.184Z',
-    updatedAt: '2021-09-01T18:29:30.184Z',
+    createdAt: '2021-09-20T01:13:03.634Z',
+    updatedAt: '2021-09-20T01:13:03.634Z',
     __v: 0,
   },
   {
-    _id: '612fc68f37b9db0ee2fd5b07',
-    title: 'New Ish',
-    summary: "Here's a brief blurb about this article",
-    body: genericParagraph,
+    _id: '6147e03fb7236b149a3fb76c',
+    title: 'New format Two',
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non iaculis massa, non ultricies leo. Nam ullamcorper sodales nulla quis sollicitudin. Nam lacinia vitae mauris eget faucibus. Sed elementum nunc tortor, ut blandit neque porta a. Maecenas in turpis vitae ante tempor tristique et at dui. Nam tincidunt erat est, vitae mollis lectus pharetra vitae. In hac habitasse platea dictumst. Nunc faucibus varius pulvinar.Pellentesque eros ipsum, accumsan sit amet risus vel, vehicula fringilla justo. Suspendisse commodo aliquet ipsum, a mattis lorem pharetra sed. Sed cursus cursus vehicula. Suspendisse sollicitudin enim ipsum, et mollis felis vulputate sed. Curabitur dui ipsum, sagittis id dolor ut, condimentum auctor libero. Donec tempus felis nec dolor convallis bibendum. Nullam nec fermentum lacus, id imperdiet nibh. Nulla malesuada lacus sit amet porttitor iaculis. Duis suscipit nibh vitae congue aliquet. Cras auctor pellentesque dolor non accumsan. Nulla mollis felis at erat facilisis, quis imperdiet mi tincidunt. Pellentesque dignissim egestas ipsum, vel lacinia leo egestas vestibulum. Etiam et vulputate massa. Morbi dignissim risus ac lorem iaculis sollicitudin. Mauris placerat nibh purus, congue pulvinar nisl imperdiet vitae. Suspendisse vehicula, mauris in finibus volutpat, augue dui auctor magna, eget rhoncus lectus ipsum id est. Proin ligula odio, lacinia nec sem vitae, mollis laoreet dolor. Quisque arcu dolor, auctor ut aliquet sed, facilisis in felis. Nullam nec ipsum augue. Duis vestibulum diam magna, eget tempor tellus malesuada id. Sed enim dui, convallis sollicitudin dui vel, venenatis volutpat lorem.',
+    summary: 'This is a new take on generic text!',
     author: {
-      _id: '612c478f7d99e8115c939cc5',
-      username: 'breh',
+      img: 'assets/img/default.png',
+      _id: '6147ccb5171c2110dc9d6f56',
+      username: 'febleh',
     },
-    createdAt: '2021-09-01T18:29:35.716Z',
-    updatedAt: '2021-09-01T18:37:35.744Z',
+    createdAt: '2021-09-20T01:13:35.069Z',
+    updatedAt: '2021-09-20T01:13:35.069Z',
     __v: 0,
   },
   {
-    _id: '613cbd25a1d89615d3597e4d',
-    title: 'Another Post',
-    summary: "Here's a brief blurb about this article",
-    body: genericParagraph,
+    _id: '6147e053b7236b149a3fb770',
+    title: 'New format Three',
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non iaculis massa, non ultricies leo. Nam ullamcorper sodales nulla quis sollicitudin. Nam lacinia vitae mauris eget faucibus. Sed elementum nunc tortor, ut blandit neque porta a. Maecenas in turpis vitae ante tempor tristique et at dui. Nam tincidunt erat est, vitae mollis lectus pharetra vitae. In hac habitasse platea dictumst. Nunc faucibus varius pulvinar.Pellentesque eros ipsum, accumsan sit amet risus vel, vehicula fringilla justo. Suspendisse commodo aliquet ipsum, a mattis lorem pharetra sed. Sed cursus cursus vehicula. Suspendisse sollicitudin enim ipsum, et mollis felis vulputate sed. Curabitur dui ipsum, sagittis id dolor ut, condimentum auctor libero. Donec tempus felis nec dolor convallis bibendum. Nullam nec fermentum lacus, id imperdiet nibh. Nulla malesuada lacus sit amet porttitor iaculis. Duis suscipit nibh vitae congue aliquet. Cras auctor pellentesque dolor non accumsan. Nulla mollis felis at erat facilisis, quis imperdiet mi tincidunt. Pellentesque dignissim egestas ipsum, vel lacinia leo egestas vestibulum. Etiam et vulputate massa. Morbi dignissim risus ac lorem iaculis sollicitudin. Mauris placerat nibh purus, congue pulvinar nisl imperdiet vitae. Suspendisse vehicula, mauris in finibus volutpat, augue dui auctor magna, eget rhoncus lectus ipsum id est. Proin ligula odio, lacinia nec sem vitae, mollis laoreet dolor. Quisque arcu dolor, auctor ut aliquet sed, facilisis in felis. Nullam nec ipsum augue. Duis vestibulum diam magna, eget tempor tellus malesuada id. Sed enim dui, convallis sollicitudin dui vel, venenatis volutpat lorem.',
+    summary: 'How many of these do I really need??',
     author: {
-      _id: '613cb95261f9f4143ef1ce2f',
-      username: 'botboy',
+      img: 'assets/img/default.png',
+      _id: '6147ccb5171c2110dc9d6f56',
+      username: 'febleh',
     },
-    createdAt: '2021-09-11T14:28:53.128Z',
-    updatedAt: '2021-09-11T14:28:53.128Z',
+    createdAt: '2021-09-20T01:13:55.931Z',
+    updatedAt: '2021-09-20T01:13:55.931Z',
     __v: 0,
   },
   {
-    _id: '613cbdb92c465715ffdb3c20',
-    title: 'this is the beginning',
-    summary: "Here's a brief blurb about this article",
-    body: genericParagraph,
+    _id: '6147e070b7236b149a3fb774',
+    title: 'I should probably limit the summary',
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non iaculis massa, non ultricies leo. Nam ullamcorper sodales nulla quis sollicitudin. Nam lacinia vitae mauris eget faucibus. Sed elementum nunc tortor, ut blandit neque porta a. Maecenas in turpis vitae ante tempor tristique et at dui. Nam tincidunt erat est, vitae mollis lectus pharetra vitae. In hac habitasse platea dictumst. Nunc faucibus varius pulvinar.Pellentesque eros ipsum, accumsan sit amet risus vel, vehicula fringilla justo. Suspendisse commodo aliquet ipsum, a mattis lorem pharetra sed. Sed cursus cursus vehicula. Suspendisse sollicitudin enim ipsum, et mollis felis vulputate sed. Curabitur dui ipsum, sagittis id dolor ut, condimentum auctor libero. Donec tempus felis nec dolor convallis bibendum. Nullam nec fermentum lacus, id imperdiet nibh. Nulla malesuada lacus sit amet porttitor iaculis. Duis suscipit nibh vitae congue aliquet. Cras auctor pellentesque dolor non accumsan. Nulla mollis felis at erat facilisis, quis imperdiet mi tincidunt. Pellentesque dignissim egestas ipsum, vel lacinia leo egestas vestibulum. Etiam et vulputate massa. Morbi dignissim risus ac lorem iaculis sollicitudin. Mauris placerat nibh purus, congue pulvinar nisl imperdiet vitae. Suspendisse vehicula, mauris in finibus volutpat, augue dui auctor magna, eget rhoncus lectus ipsum id est. Proin ligula odio, lacinia nec sem vitae, mollis laoreet dolor. Quisque arcu dolor, auctor ut aliquet sed, facilisis in felis. Nullam nec ipsum augue. Duis vestibulum diam magna, eget tempor tellus malesuada id. Sed enim dui, convallis sollicitudin dui vel, venenatis volutpat lorem.',
+    summary: 'Maybe I should limit this to like 20 characters or something...',
     author: {
-      _id: '613cb95261f9f4143ef1ce2f',
-      username: 'botboy',
+      img: 'assets/img/default.png',
+      _id: '6147ccb5171c2110dc9d6f56',
+      username: 'febleh',
     },
-    createdAt: '2021-09-11T14:31:21.114Z',
-    updatedAt: '2021-09-11T14:31:21.114Z',
+    createdAt: '2021-09-20T01:14:24.644Z',
+    updatedAt: '2021-09-20T01:14:24.644Z',
     __v: 0,
   },
 ]
@@ -84,18 +76,16 @@ function Home() {
             date = new Date(entry.createdAt).toDateString()
           }
           return (
-            <a className={styles.pst_lnk} href="#" key={entry._id}>
-              <div className={styles.prfl_pic}>
-                <img src={entry.profilePic || profile} alt="X" />
-              </div>
-              <div>
+            <div className={styles.pst_wrapper} key={entry._id}>
+              <div id={styles.article_wrapper}>
                 <a className={styles.article_lnk} href="">
                   <h2 className={styles.article_ttl}>{entry.title}</h2>
+                  <p className={styles.article_sum}>{entry.summary}</p>
                 </a>
-                <p className={styles.sum}>{entry.summary}</p>
-                <span className={styles.date}>- {date}</span>
               </div>
-            </a>
+              <User author={entry.author} />
+              <span className={styles.date}>- {date}</span>
+            </div>
           )
         })}
       </ul>

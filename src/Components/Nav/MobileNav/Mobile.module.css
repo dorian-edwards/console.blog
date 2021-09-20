@@ -21,6 +21,7 @@ li {
   text-align: center;
   padding-bottom: 1rem;
   border-bottom-left-radius: 3px;
+  z-index: 1;
 }
 
 #subMenu li {

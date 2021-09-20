@@ -14,10 +14,10 @@
 }
 
 #home_header span {
-  border-bottom: 2px solid red;
+  text-decoration: yellow wavy underline;
 }
 
-.pst_lnk {
+.pst_wrapper {
   display: block;
   text-decoration: none;
   color: inherit;
@@ -25,6 +25,7 @@
   margin: 10px;
   padding: 15px;
   border-radius: 3px;
+  position: relative;
 }
 
 .prfl_pic {
@@ -43,20 +44,35 @@
 
 .article_ttl {
   font-size: 1.75rem;
+  font-weight: 400;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
 }
 
 .article_sum {
-  font-size: 1.25rem;
+  text-indent: 2px;
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 1px;
 }
 
 .date {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-style: italic;
+}
+
+#article_wrapper {
+  width: 100%;
+  max-width: 400px;
 }
 .article_lnk {
   text-decoration: none;
   color: inherit;
 }
 
-.article_lnk:hover {
+.article_ttl:hover {
   color: var(--primary-accent);
 }

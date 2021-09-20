@@ -13,6 +13,14 @@ const postSchema = new Schema(
         'Call us crazy, but we think every post should have some content...',
       ],
     },
+    summary: {
+      type: String,
+      required: [true, 'Give a little preview of what the article is about'],
+    },
+    img: {
+      type: String,
+      default: 'assets/img/stock_img.webp',
+    },
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import Mobile from './MobileNav/Mobile'
 import Desktop from './DesktopNav/Desktop'
-import './Nav.module.css'
+import styles from './Nav.module.css'
 
 function Nav() {
   const [width, setWidth] = useState(window.innerWidth)
@@ -14,7 +14,11 @@ function Nav() {
     })
   }, [])
 
-  return <nav>{width < breakpoint ? <Mobile /> : <Desktop />}</nav>
+  return (
+    <nav id={styles.mainNav}>
+      {width < breakpoint ? <Mobile /> : <Desktop />}
+    </nav>
+  )
 }
 
 export default Nav
