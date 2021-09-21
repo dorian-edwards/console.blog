@@ -5,6 +5,7 @@ import UserPage from './Components/User/UserPage'
 import Login from './Components/Login/Login'
 import SignUp from './Components/SignUp/SignUp'
 import Post from './Components/Post/Post'
+import EditPost from './Components/Post/EditPost'
 import EditUser from './Components/User/EditUser'
 /**
  * The following to components are here for testing, they'll be removed on deployment
@@ -27,7 +28,7 @@ function App() {
     <Router>
       <Nav />
       <div id="main">
-        <EditUser />
+        <EditPost />
       </div>
     </Router>
   )
