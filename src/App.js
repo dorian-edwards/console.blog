@@ -28,7 +28,7 @@ function App() {
     <Router>
       <Nav />
       <div id="main">
-        <EditPost />
+        <Home />
       </div>
     </Router>
   )
