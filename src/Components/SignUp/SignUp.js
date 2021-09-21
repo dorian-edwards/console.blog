@@ -27,7 +27,7 @@ function SignUp() {
         </label>
         <input type="password" name="password" id={styles.password} />
         <label className={styles.sgn_label} htmlFor={styles.confirmPassword}>
-          Confirm Password:{' '}
+          Retype Password:{' '}
         </label>
         <input
           type="password"
