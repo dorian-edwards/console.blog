@@ -20,3 +20,7 @@ html {
   --secondary-light: #bfc0c0;
   --primary-accent: #ef8354;
 }
+
+#main {
+  padding-top: 50px;
+}

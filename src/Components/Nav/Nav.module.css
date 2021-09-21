@@ -4,5 +4,7 @@
   width: 100%;
   padding: 0.75rem;
   background: var(--primary-dark);
-  margin-bottom: 50px;
+  position: fixed;
+  top: 0;
+  z-index: 1;
 }
