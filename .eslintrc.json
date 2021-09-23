@@ -19,7 +19,23 @@
     "class-methods-use-this": "off",
     "prefer-destructuring": ["error", { "object": true, "array": false }],
     "no-unused-vars": ["warn", { "argsIgnorePattern": "req|res|next|val" }],
-    "node/no-unsupported-features/es-syntax": "off"
+    "node/no-unsupported-features/es-syntax": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "required": {
+          "some": ["nesting", "id"]
+        }
+      }
+    ],
+    "jsx-a11y/label-has-for": [
+      "error",
+      {
+        "required": {
+          "some": ["nesting", "id"]
+        }
+      }
+    ]
   },
   "parserOptions": {
     "sourceType": "module"
