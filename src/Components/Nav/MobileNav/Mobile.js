@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import hamburger from '../hamburger.svg'
 import logo from '../logo.svg'
@@ -8,10 +9,14 @@ function SubMenu() {
   return (
     <div id={styles.subMenu}>
       <ul>
-        <li>Home</li>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
         <li>About</li>
         <li>Profile</li>
-        <li>Sign Out</li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
       </ul>
     </div>
   )
@@ -23,9 +28,9 @@ function Mobile() {
 
   return (
     <div className={styles['mbl-wrap']}>
-      <div id={styles.logo}>
+      <Link to="/" id={styles.logo}>
         <img src={logo} alt="open book icon" />
-      </div>
+      </Link>
       <div id={styles.burger} onClick={toggleActive} role="button" tabIndex={0}>
         <img src={hamburger} alt="mobile hamburger icon" />
       </div>
