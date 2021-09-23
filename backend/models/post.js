@@ -19,7 +19,7 @@ const postSchema = new Schema(
     },
     img: {
       type: String,
-      default: 'assets/img/stock_img.webp',
+      default: '/assets/img/stock_img.webp',
     },
     author: {
       type: Schema.Types.ObjectId,

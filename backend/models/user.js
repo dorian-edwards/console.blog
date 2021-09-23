@@ -32,7 +32,7 @@ const userSchema = new Schema({
   img: {
     type: String,
     trim: true,
-    default: 'assets/img/default.png',
+    default: '/assets/img/default.png',
   },
   password: {
     type: String,
@@ -66,8 +66,12 @@ userSchema.methods.checkPassword = async function (password) {
 }
 
 userSchema.methods.changedPasswordAfter = function (issueTime) {
-  const updatedAt = Math.round(this.passwordUpdated.getTime() / 1000)
-  return updatedAt > issueTime
+  if (this.passwordUpdated) {
+    const updatedAt = Math.round(this.passwordUpdated.getTime() / 1000)
+    return updatedAt > issueTime
+  }
+
+  return false
 }
 
 module.exports = model('User', userSchema)
