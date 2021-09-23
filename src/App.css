@@ -19,6 +19,8 @@ html {
   --primary-light: #ffffff;
   --secondary-light: #bfc0c0;
   --primary-accent: #ef8354;
+  --error-bkgrd: #ffe9ea;
+  --error-msg: #e40126;
 }
 
 #main {

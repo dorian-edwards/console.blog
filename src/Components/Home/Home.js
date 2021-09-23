@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import styles from './Home.module.css'
 import User from '../User/User'
@@ -33,10 +34,14 @@ function Home() {
             return (
               <div className={styles.pst_wrapper} key={entry._id}>
                 <div id={styles.article_wrapper}>
-                  <a className={styles.article_lnk} href="">
+                  <Link
+                    to={`/posts/${entry._id}`}
+                    className={styles.article_lnk}
+                    href=""
+                  >
                     <h2 className={styles.article_ttl}>{entry.title}</h2>
                     <p className={styles.article_sum}>{entry.summary}</p>
-                  </a>
+                  </Link>
                 </div>
                 <User author={entry.author} />
                 <span className={styles.date}>- {date}</span>
