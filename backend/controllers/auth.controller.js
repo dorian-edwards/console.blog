@@ -3,6 +3,7 @@ const { promisify } = require('util')
 const jwt = require('jsonwebtoken')
 const signToken = require('../utils/signToken')
 const catchAsync = require('../utils/catchAsync')
+const checkAuth = require('../utils/checkAuth')
 const User = require('../models/user')
 const Post = require('../models/post')
 const AppError = require('../utils/appError')
@@ -15,7 +16,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   const user = await User.create({ ...req.body })
   if (!user) return next()
 
-  const token = signToken(user)
+  const token = signToken(res, user)
   res.status(200).json({
     status: 'success',
     token,
@@ -35,7 +36,7 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || !(await user.checkPassword(password)))
     return next(new AppError('Invalid email or password', 401))
 
-  const token = signToken(user)
+  const token = signToken(res, user)
   res.status(200).json({
     status: 'success',
     token,
@@ -43,25 +44,13 @@ exports.login = catchAsync(async (req, res, next) => {
 })
 
 exports.validate = catchAsync(async (req, res, next) => {
-  // 1) validate authorization header
-  const { authorization } = req.headers
-
-  if (!authorization || authorization.split(' ').length !== 2)
+  const token = checkAuth(req)
+  if (!token)
     return next(
       new AppError('Authorization required to access this resource...', 401)
     )
-
-  const [bearer, token] = [...authorization.split(' ')]
-
-  // the token === 'null' is a workaround for a postman bug for now
-  if (bearer !== 'Bearer' || token === 'null') {
-    return next(
-      new AppError('Authorization required to access this resource...', 401)
-    )
-  }
 
   // 2) verify token
-
   // eslint-disable-next-line arrow-body-style
   await promisify(jwt.verify)(token, process.env.JWT_SECRET)
     .then(async (data) => {

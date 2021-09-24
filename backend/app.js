@@ -1,6 +1,8 @@
 require('dotenv').config({ path: './config.env' })
 const express = require('express')
 const morgan = require('morgan')
+const cookieParser = require('cookie-parser')
+const helmet = require('helmet')
 const cors = require('cors')
 const authRouter = require('./routes/auth.routes')
 const userRouter = require('./routes/user.routes')
@@ -10,10 +12,25 @@ const AppError = require('./utils/appError')
 
 const app = express()
 
+app.use(helmet())
 app.use(morgan('tiny'))
-app.use(cors())
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type, Accept'],
+  })
+)
+
 app.use(express.json())
+app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }))
+
+// For testing cookies
+// app.use((req, res, next) => {
+//   console.log('Cookies: ', req.cookies)
+//   next()
+// })
 
 app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
