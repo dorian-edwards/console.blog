@@ -11,7 +11,7 @@ function Home() {
   const [posts, setPosts] = useState(null)
 
   useEffect(() => {
-    axios.get(baseUrl).then((res) => {
+    axios.get(baseUrl, { withCredentials: true }).then((res) => {
       const { data } = res.data
       setPosts(data)
     })

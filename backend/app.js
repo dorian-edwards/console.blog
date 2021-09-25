@@ -26,12 +26,6 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }))
 
-// For testing cookies
-// app.use((req, res, next) => {
-//   console.log('Cookies: ', req.cookies)
-//   next()
-// })
-
 app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)

@@ -8,7 +8,7 @@ const data = {
   lastName: 'edwards',
   email: 'dorian@gmail.com',
   username: 'breh',
-  img: 'assets/img/profilePic.jpg',
+  img: '/assets/img/profilePic.jpg',
 }
 
 function UserPage() {

@@ -14,21 +14,18 @@ import User from './Components/User/User'
 import Display from './Components/Display/Display'
 import './App.css'
 
-const data = {
-  _id: '612c478f7d99e8115c939cc5',
-  firstName: 'dorian',
-  lastName: 'edwards',
-  email: 'dorian@gmail.com',
-  username: 'breh',
-  img: 'assets/img/profilePic.jpg',
-}
-
 function App() {
   return (
-    <Router>
+    <Router forceRefresh>
       <Nav />
       <div id="main">
-        <Home />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/posts/:id" component={Post} />
+          <Route exact path="/users/:id" component={UserPage} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
+        </Switch>
       </div>
     </Router>
   )
