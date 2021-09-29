@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styles from './Desktop.module.css'
 import logo from '../logo.svg'
 
-function Desktop({ loggedIn, signOut }) {
+function Desktop({ loggedIn, signOut, userId }) {
   return (
     <div className={styles['dsk-wrap']}>
       <Link to="/" id={styles.logo}>
@@ -17,7 +17,9 @@ function Desktop({ loggedIn, signOut }) {
           <li>About</li>
           {loggedIn ? (
             <>
-              <li>Profile</li>
+              <li>
+                <Link to={`/users/${userId}`}>Profile</Link>
+              </li>
               <li>
                 <button id={styles.sgnOut} type="button" onClick={signOut}>
                   Sign Out
@@ -38,6 +40,7 @@ function Desktop({ loggedIn, signOut }) {
 Desktop.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 }
 
 export default Desktop

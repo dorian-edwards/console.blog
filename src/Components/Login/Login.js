@@ -20,7 +20,8 @@ function Login() {
       const { data } = res.data
       if (data) setLogin(true)
     } catch (err) {
-      // todo
+      // eslint-disable-next-line no-console
+      console.log({ err })
     }
   }, [loggedIn])
 
@@ -44,8 +45,7 @@ function Login() {
         { email, password },
         { withCredentials: true }
       )
-      console.log({ res })
-      setLogin(true)
+      if (res) setLogin(true)
     } catch (err) {
       const { message } = err.response.data
       setLoginFail(message)

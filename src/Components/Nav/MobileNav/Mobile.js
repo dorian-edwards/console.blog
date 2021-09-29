@@ -7,7 +7,7 @@ import hamburger from '../hamburger.svg'
 import logo from '../logo.svg'
 import styles from './Mobile.module.css'
 
-function Mobile({ loggedIn, signOut }) {
+function Mobile({ loggedIn, signOut, userId }) {
   const [active, setActive] = useState(false)
 
   const toggleActive = () => setActive(!active)
@@ -20,7 +20,9 @@ function Mobile({ loggedIn, signOut }) {
       <div id={styles.burger} onClick={toggleActive} role="button" tabIndex={0}>
         <img src={hamburger} alt="mobile hamburger icon" />
       </div>
-      {active && <SubMenu loggedIn={loggedIn} signOut={signOut} />}
+      {active && (
+        <SubMenu loggedIn={loggedIn} signOut={signOut} userId={userId} />
+      )}
     </div>
   )
 }
@@ -28,6 +30,7 @@ function Mobile({ loggedIn, signOut }) {
 Mobile.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 }
 
 export default Mobile

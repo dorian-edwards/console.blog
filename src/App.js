@@ -22,6 +22,7 @@ import './App.css'
 
 function App() {
   const [loggedIn, setLogin] = useState(false)
+  const [id, setId] = useState('')
 
   useEffect(async () => {
     try {
@@ -29,10 +30,12 @@ function App() {
         withCredentials: true,
       })
       const { data } = res.data
-      if (data) setLogin(true)
-      console.log('render ...')
+      if (data) {
+        setLogin(true)
+        setId(data._id)
+      }
     } catch (err) {
-      console.log({ err })
+      // todo
     }
   }, [loggedIn])
 
@@ -41,16 +44,16 @@ function App() {
       const data = await axios.get('http://localhost:8080/api/v1/signout', {
         withCredentials: true,
       })
-      setLogin(false)
-      console.log({ data })
+      if (data) setLogin(false)
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log({ err })
     }
   }
 
   return (
     <Router forceRefresh>
-      <Nav loggedIn={loggedIn} signOut={signOut} />
+      <Nav loggedIn={loggedIn} signOut={signOut} userId={id} />
       <div id="main">
         <Switch>
           <Route exact path="/" component={Home} />
@@ -59,7 +62,6 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
         </Switch>
-        {console.log(loggedIn)}
       </div>
     </Router>
   )

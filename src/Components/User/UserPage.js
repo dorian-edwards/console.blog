@@ -1,21 +1,34 @@
+import axios from 'axios'
+import { useParams, Redirect } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import styles from './UserPage.module.css'
 import UserCard from './UserCard'
 import PostList from '../Post/PostList'
 
-const data = {
-  _id: '612c478f7d99e8115c939cc5',
-  firstName: 'dorian',
-  lastName: 'edwards',
-  email: 'dorian@gmail.com',
-  username: 'breh',
-  img: '/assets/img/profilePic.jpg',
-}
-
 function UserPage() {
+  const [user, setUser] = useState('')
+  const [error, setError] = useState(false)
+  const { id } = useParams()
+
+  useEffect(async () => {
+    try {
+      const res = await axios.get(`http://localhost:8080/api/v1/users/${id}`, {
+        withCredentials: true,
+      })
+      const { data } = res.data
+      if (data) setUser(data)
+    } catch (err) {
+      if (err.response) {
+        if (err.response.status === 401) setError(true)
+      }
+    }
+  }, [user, error])
+
   return (
     <div className={styles.container}>
+      {error && <Redirect to="/login" />}
       <div id={styles.usr}>
-        <UserCard user={data} />
+        <UserCard user={user} />
       </div>
       <div id={styles.posts}>
         <PostList />

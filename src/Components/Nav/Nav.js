@@ -5,7 +5,7 @@ import Mobile from './MobileNav/Mobile'
 import Desktop from './DesktopNav/Desktop'
 import styles from './Nav.module.css'
 
-function Nav({ loggedIn, signOut }) {
+function Nav({ loggedIn, signOut, userId }) {
   const [width, setWidth] = useState(window.innerWidth)
   const breakpoint = 500
 
@@ -18,9 +18,9 @@ function Nav({ loggedIn, signOut }) {
   return (
     <nav id={styles.mainNav}>
       {width < breakpoint ? (
-        <Mobile loggedIn={loggedIn} signOut={signOut} />
+        <Mobile loggedIn={loggedIn} signOut={signOut} userId={userId} />
       ) : (
-        <Desktop loggedIn={loggedIn} signOut={signOut} />
+        <Desktop loggedIn={loggedIn} signOut={signOut} userId={userId} />
       )}
     </nav>
   )
@@ -29,6 +29,7 @@ function Nav({ loggedIn, signOut }) {
 Nav.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 }
 
 export default Nav

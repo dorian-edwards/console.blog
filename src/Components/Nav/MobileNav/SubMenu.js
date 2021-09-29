@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import styles from './SubMenu.module.css'
 
-function SubMenu({ loggedIn, signOut }) {
+function SubMenu({ loggedIn, signOut, userId }) {
   return (
     <div id={styles.subMenu}>
       <ul>
@@ -12,7 +12,9 @@ function SubMenu({ loggedIn, signOut }) {
         <li>About</li>
         {loggedIn ? (
           <>
-            <li>Profile</li>
+            <li>
+              <Link to={`/users/${userId}`}>Profile</Link>
+            </li>
             <li>
               <button id={styles.sgnOut} type="button" onClick={signOut}>
                 Sign Out
@@ -32,6 +34,7 @@ function SubMenu({ loggedIn, signOut }) {
 SubMenu.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 }
 
 export default SubMenu
