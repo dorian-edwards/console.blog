@@ -4,6 +4,8 @@ const authController = require('../controllers/auth.controller')
 
 const router = express.Router()
 
+router.get('/', authController.checkSignIn)
+router.get('/signout', authController.signOut)
 router.post('/signup', userValidation, authController.signup)
 router.post('/login', authController.login)
 

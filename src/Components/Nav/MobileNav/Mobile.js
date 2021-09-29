@@ -1,29 +1,15 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import SubMenu from './SubMenu'
 import hamburger from '../hamburger.svg'
 import logo from '../logo.svg'
 import styles from './Mobile.module.css'
 
-function SubMenu() {
-  return (
-    <div id={styles.subMenu}>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>About</li>
-        <li>Profile</li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-      </ul>
-    </div>
-  )
-}
-
-function Mobile() {
+function Mobile({ loggedIn, signOut }) {
   const [active, setActive] = useState(false)
+
   const toggleActive = () => setActive(!active)
 
   return (
@@ -34,9 +20,14 @@ function Mobile() {
       <div id={styles.burger} onClick={toggleActive} role="button" tabIndex={0}>
         <img src={hamburger} alt="mobile hamburger icon" />
       </div>
-      {active && <SubMenu />}
+      {active && <SubMenu loggedIn={loggedIn} signOut={signOut} />}
     </div>
   )
+}
+
+Mobile.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  signOut: PropTypes.func.isRequired,
 }
 
 export default Mobile

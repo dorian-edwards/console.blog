@@ -1,0 +1,27 @@
+@import url('../../../App.css');
+
+#subMenu {
+  position: absolute;
+  background: var(--primary-dark);
+  color: #f7f7f7;
+  top: 45px;
+  right: 0;
+  width: 50vw;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom-left-radius: 3px;
+  z-index: 1;
+}
+
+#subMenu li {
+  font-size: 24px;
+  margin: 15px;
+}
+
+#sgnOut {
+  border: none;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  font-size: 24px;
+}

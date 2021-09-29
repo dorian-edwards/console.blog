@@ -95,3 +95,21 @@ exports.checkAuthor = catchAsync(async (req, res, next) => {
 
   next()
 })
+
+exports.checkSignIn = catchAsync(async (req, res, next) => {
+  const token = checkAuth(req)
+  if (token) {
+    const data = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
+    const user = await User.findById(data.id)
+
+    if (user && !user.changedPasswordAfter(data.iat))
+      return res.status(200).json({ status: 'success', data: user })
+  }
+
+  res.status(200).json({ status: 'success', data: null })
+})
+
+exports.signOut = catchAsync((req, res, next) => {
+  res.clearCookie('jwt')
+  res.status(200).json({ status: 200, data: 'cookie cleared' })
+})

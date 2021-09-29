@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import styles from './Login.module.css'
 import close from '../x.svg'
@@ -9,6 +10,19 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginFail, setLoginFail] = useState('')
+  const [loggedIn, setLogin] = useState(false)
+
+  useEffect(async () => {
+    try {
+      const res = await axios.get('http://localhost:8080/api/v1', {
+        withCredentials: true,
+      })
+      const { data } = res.data
+      if (data) setLogin(true)
+    } catch (err) {
+      // todo
+    }
+  }, [loggedIn])
 
   const handleEmail = (event) => {
     setEmail(event.target.value)
@@ -31,6 +45,7 @@ function Login() {
         { withCredentials: true }
       )
       console.log({ res })
+      setLogin(true)
     } catch (err) {
       const { message } = err.response.data
       setLoginFail(message)
@@ -41,6 +56,7 @@ function Login() {
 
   return (
     <div className={styles.container}>
+      {loggedIn && <Redirect to="/" />}
       <form id={styles.lgn_form} onSubmit={handleSubmit}>
         <h1 id={styles.lgn_header}>Login</h1>
         <label htmlFor={styles.email}>Email: </label>
