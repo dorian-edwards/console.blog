@@ -109,7 +109,9 @@ exports.checkSignIn = catchAsync(async (req, res, next) => {
   res.status(200).json({ status: 'success', data: null })
 })
 
-exports.signOut = catchAsync((req, res, next) => {
-  res.clearCookie('jwt')
-  res.status(200).json({ status: 200, data: 'cookie cleared' })
+exports.signOut = catchAsync(async (req, res, next) => {
+  res
+    .clearCookie('jwt')
+    .status(200)
+    .json({ status: 200, data: 'cookie cleared' })
 })
