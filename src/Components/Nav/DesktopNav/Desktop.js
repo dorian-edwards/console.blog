@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../../auth'
 import styles from './Desktop.module.css'
 import logo from '../logo.svg'
 
-function Desktop({ loggedIn, signOut, userId }) {
+function Desktop() {
+  const auth = useAuth()
   return (
     <div className={styles['dsk-wrap']}>
       <Link to="/" id={styles.logo}>
@@ -15,13 +16,13 @@ function Desktop({ loggedIn, signOut, userId }) {
             <Link to="/">Home</Link>
           </li>
           <li>About</li>
-          {loggedIn ? (
+          {auth.user ? (
             <>
               <li>
-                <Link to={`/users/${userId}`}>Profile</Link>
+                <Link to={`/users/${auth.user._id}`}>Profile</Link>
               </li>
               <li>
-                <button id={styles.sgnOut} type="button" onClick={signOut}>
+                <button id={styles.sgnOut} type="button" onClick={auth.signOut}>
                   Sign Out
                 </button>
               </li>
@@ -36,11 +37,4 @@ function Desktop({ loggedIn, signOut, userId }) {
     </div>
   )
 }
-
-Desktop.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
-  signOut: PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired,
-}
-
 export default Desktop

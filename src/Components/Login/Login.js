@@ -1,29 +1,14 @@
-import axios from 'axios'
+import { useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useAuth } from '../../auth'
 import styles from './Login.module.css'
 import close from '../x.svg'
 
-const baseUrl = 'http://localhost:8080/api/v1/login'
-
 function Login() {
+  const auth = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginFail, setLoginFail] = useState('')
-  const [loggedIn, setLogin] = useState(false)
-
-  useEffect(async () => {
-    try {
-      const res = await axios.get('http://localhost:8080/api/v1', {
-        withCredentials: true,
-      })
-      const { data } = res.data
-      if (data) setLogin(true)
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log({ err })
-    }
-  }, [loggedIn])
 
   const handleEmail = (event) => {
     setEmail(event.target.value)
@@ -40,23 +25,15 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const res = await axios.post(
-        baseUrl,
-        { email, password },
-        { withCredentials: true }
-      )
-      if (res) setLogin(true)
+      await auth.login(email, password)
     } catch (err) {
-      const { message } = err.response.data
-      setLoginFail(message)
-      setPassword('')
-      setEmail('')
+      if (err.response) setLoginFail(err.response.data.message)
     }
   }
 
   return (
     <div className={styles.container}>
-      {loggedIn && <Redirect to="/" />}
+      {auth.user && <Redirect to="/" />}
       <form id={styles.lgn_form} onSubmit={handleSubmit}>
         <h1 id={styles.lgn_header}>Login</h1>
         <label htmlFor={styles.email}>Email: </label>

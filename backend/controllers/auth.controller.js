@@ -39,7 +39,15 @@ exports.login = catchAsync(async (req, res, next) => {
   const token = signToken(res, user)
   res.status(200).json({
     status: 'success',
-    token,
+    // eslint-disable-next-line no-shadow
+    data: (({ img, _id, firstName, lastName, email, username }) => ({
+      img,
+      _id,
+      firstName,
+      lastName,
+      email,
+      username,
+    }))(user),
   })
 })
 
@@ -100,7 +108,7 @@ exports.checkSignIn = catchAsync(async (req, res, next) => {
   const token = checkAuth(req)
   if (token) {
     const data = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
-    const user = await User.findById(data.id)
+    const user = await User.findById(data.id).select('-passwordUpdated -__v')
 
     if (user && !user.changedPasswordAfter(data.iat))
       return res.status(200).json({ status: 'success', data: user })

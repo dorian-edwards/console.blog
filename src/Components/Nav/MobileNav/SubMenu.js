@@ -1,8 +1,10 @@
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../../auth'
 import styles from './SubMenu.module.css'
 
-function SubMenu({ loggedIn, signOut, userId }) {
+function SubMenu() {
+  const auth = useAuth()
+
   return (
     <div id={styles.subMenu}>
       <ul>
@@ -10,13 +12,13 @@ function SubMenu({ loggedIn, signOut, userId }) {
           <Link to="/">Home</Link>
         </li>
         <li>About</li>
-        {loggedIn ? (
+        {auth.user ? (
           <>
             <li>
-              <Link to={`/users/${userId}`}>Profile</Link>
+              <Link to={`/users/${auth.user.id}`}>Profile</Link>
             </li>
             <li>
-              <button id={styles.sgnOut} type="button" onClick={signOut}>
+              <button id={styles.sgnOut} type="button" onClick={auth.signOut}>
                 Sign Out
               </button>
             </li>
@@ -29,12 +31,6 @@ function SubMenu({ loggedIn, signOut, userId }) {
       </ul>
     </div>
   )
-}
-
-SubMenu.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
-  signOut: PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired,
 }
 
 export default SubMenu
