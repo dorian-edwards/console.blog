@@ -3,6 +3,7 @@ const { checkEmail, checkPassword } = require('../validators/userValidation')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const User = require('../models/user')
+const Post = require('../models/post')
 
 exports.fetchAll = catchAsync(async (req, res, next) => {
   const users = await User.find()
@@ -59,4 +60,20 @@ exports.delete = catchAsync(async (req, res, next) => {
   const user = await User.findByIdAndDelete(req.params.id)
   if (!user) return next(new AppError(`Could not find this user`, 404))
   res.status(200).json({ status: 'success', data: user })
+})
+
+exports.fetchByAuthor = catchAsync(async (req, res, next) => {
+  const { id } = req.params
+  const data = await Post.find({ author: id })
+  if (data) {
+    return res.status(200).json({
+      status: 'success',
+      results: data.length,
+      data,
+    })
+  }
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  })
 })
