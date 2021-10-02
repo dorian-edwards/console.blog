@@ -17,4 +17,9 @@ router
   .patch(authController.checkUser, userController.update)
   .delete(authController.checkUser, userController.delete)
 
+router
+  .route('/:id/posts')
+  .all(authController.validate)
+  .get(userController.fetchByAuthor)
+
 module.exports = router
