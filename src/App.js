@@ -3,6 +3,7 @@ import { ProvideAuth } from './auth'
 import Nav from './Components/Nav/Nav'
 import Home from './Components/Home/Home'
 import UserPage from './Components/User/UserPage'
+import EditUser from './Components/User/EditUser'
 import Login from './Components/Login/Login'
 import SignUp from './Components/SignUp/SignUp'
 import Post from './Components/Post/Post'
@@ -19,11 +20,14 @@ export default function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/posts/:id" component={Post} />
-            <ProtectedRoute path="/users/:id">
+            <ProtectedRoute exact path="/users/:id">
               <UserPage />
             </ProtectedRoute>
             <ProtectedRoute path="/profile">
               <UserPage />
+            </ProtectedRoute>
+            <ProtectedRoute path="/users/:id/edit">
+              <EditUser />
             </ProtectedRoute>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />

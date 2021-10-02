@@ -19,7 +19,7 @@ function PostList({ id }) {
     } catch (err) {
       console.log({ err })
     }
-  }, [])
+  }, [id])
 
   return (
     <div id={styles.pst_wrapper}>
