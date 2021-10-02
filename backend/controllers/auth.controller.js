@@ -39,6 +39,7 @@ exports.login = catchAsync(async (req, res, next) => {
   const token = signToken(res, user)
   res.status(200).json({
     status: 'success',
+    token,
     // eslint-disable-next-line no-shadow
     data: (({ img, _id, firstName, lastName, email, username }) => ({
       img,
