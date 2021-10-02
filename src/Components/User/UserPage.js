@@ -6,7 +6,7 @@ import UserCard from './UserCard'
 import PostList from '../Post/PostList'
 
 function UserPage() {
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState(null)
   const [error, setError] = useState(false)
   const { id } = useParams()
 
@@ -22,16 +22,14 @@ function UserPage() {
         if (err.response.status === 401) setError(true)
       }
     }
-  }, [user, error])
+  }, [id])
 
   return (
     <div className={styles.container}>
       {error && <Redirect to="/login" />}
-      <div id={styles.usr}>
-        <UserCard user={user} />
-      </div>
+      <div id={styles.usr}>{user && <UserCard user={user} />}</div>
       <div id={styles.posts}>
-        <PostList />
+        <PostList id={id} />
       </div>
     </div>
   )
