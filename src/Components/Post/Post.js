@@ -8,23 +8,26 @@ import Display from '../Display/Display'
 function Post() {
   const [post, setPost] = useState(null)
   const [timeStamp, setTimeStamp] = useState(null)
-
   const { id } = useParams()
 
-  const baseUrl = `http://localhost:8080/api/v1/posts/${id}`
-  useEffect(() => {
-    axios.get(baseUrl).then((res) => {
+  useEffect(async () => {
+    try {
+      const res = await axios.get(`http://localhost:8080/api/v1/posts/${id}`, {
+        withCredentials: true,
+      })
       const { data } = res.data
       setPost(data)
 
-      const { createdAt, updatedAt } = data
-      if (createdAt !== updatedAt) {
-        setTimeStamp(new Date(updatedAt).toDateString())
-      } else {
-        setTimeStamp(new Date(createdAt).toDateString())
-      }
-    })
-  }, [])
+      const stamp =
+        data.createdAt === data.updatedAt
+          ? new Date(data.createdAt)
+          : new Date(data.updatedAt)
+
+      setTimeStamp(stamp.toDateString())
+    } catch (err) {
+      console.log({ err })
+    }
+  }, [id])
 
   return (
     post && (

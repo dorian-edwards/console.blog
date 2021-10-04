@@ -13,7 +13,6 @@ const useProvideAuth = () => {
     const res = await axios.get(baseUrl, { withCredentials: true })
     const { data } = res.data
     if (data) {
-      console.log(data)
       setUser(data)
     }
   }, [])
@@ -26,7 +25,6 @@ const useProvideAuth = () => {
     )
     const { data } = res.data
     if (data) {
-      console.log(data)
       setUser(data)
     }
   }

@@ -1,24 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useAuth } from '../../auth'
 import styles from './EditUser.module.css'
 
-// After image upload is implemented, clicking on the image will trigger an upload option
-// const data = {
-//   _id: '612c478f7d99e8115c939cc5',
-//   firstName: 'dorian',
-//   lastName: 'edwards',
-//   email: 'dorian@gmail.com',
-//   username: 'breh',
-//   img: '/assets/img/default.png',
-//   bio: `Dorian is a 37 year old pharmacist learning web-development.`,
-// }
-
 function EditUser() {
-  const [user, setUser] = useState(null)
+  const [img, setImg] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [username, setUserName] = useState('')
+  const [email, setEmail] = useState('')
+  const [bio, setBio] = useState('')
   const { id } = useParams()
+  const history = useHistory()
 
   useEffect(async () => {
     try {
@@ -26,90 +20,136 @@ function EditUser() {
         withCredentials: true,
       })
       const { data } = res.data
-      setUser({ ...data })
+      setImg(data.img)
+      setFirstName(data.firstName)
+      setLastName(data.lastName)
+      setUserName(data.username)
+      setEmail(data.email)
+      setBio(data.bio)
     } catch (err) {
       console.log({ err })
     }
   }, [])
 
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value)
+  }
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value)
+  }
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value)
+  }
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value)
+  }
+  const handleBioChange = (e) => {
+    setBio(e.target.value)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const newUser = {
+        firstName,
+        lastName,
+        username,
+        email,
+        bio,
+      }
+
+      const res = await axios.patch(
+        `http://localhost:8080/api/v1/users/${id}`,
+        { ...newUser },
+        { withCredentials: true }
+      )
+      if (res) history.go(0)
+    } catch (err) {
+      console.log({ err })
+    }
+  }
+
   return (
     <div>
       <div className={styles.container}>
-        {user && (
-          <div id={styles.edt_wrapper}>
-            <div id={styles.edt_image}>
-              <div id={styles.img_wrapper}>
-                <img src={user.img} alt="user specific" />
-              </div>
-            </div>
-            <div id={styles.edt_info}>
-              <form id={styles.edt_form}>
-                <div>
-                  {' '}
-                  <label
-                    className={styles.edt_label}
-                    htmlFor={styles.firstName}
-                  >
-                    First Name:{' '}
-                  </label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    id={styles.firstName}
-                    placeholder={user.firstName}
-                  />
-                </div>
-                <div>
-                  {' '}
-                  <label className={styles.edt_label} htmlFor={styles.lastName}>
-                    Last Name:{' '}
-                  </label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    id={styles.lastName}
-                    placeholder={user.lastName}
-                  />
-                </div>
-                <div>
-                  {' '}
-                  <label className={styles.edt_label} htmlFor={styles.username}>
-                    Username:{' '}
-                  </label>
-                  <input
-                    type="text"
-                    name="username"
-                    id={styles.username}
-                    placeholder={user.username}
-                  />
-                </div>
-                <div>
-                  {' '}
-                  <label className={styles.edt_label} htmlFor={styles.email}>
-                    Email:{' '}
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id={styles.email}
-                    placeholder={user.email}
-                  />
-                </div>
-                <div>
-                  {' '}
-                  <label className={styles.edt_label} htmlFor={styles.bio}>
-                    Bio:{' '}
-                  </label>
-                  <textarea name="bio" id={styles.bio} placeholder={user.bio} />
-                </div>
-                <button type="submit">Submit Changes</button>
-                <Link to="#">
-                  <button type="button">Change Password</button>
-                </Link>
-              </form>
+        <div id={styles.edt_wrapper}>
+          <div id={styles.edt_image}>
+            <div id={styles.img_wrapper}>
+              <img src={img} alt="user specific" />
             </div>
           </div>
-        )}
+          <div id={styles.edt_info}>
+            <form id={styles.edt_form} onSubmit={handleSubmit}>
+              <div>
+                {' '}
+                <label className={styles.edt_label} htmlFor={styles.firstName}>
+                  First Name:{' '}
+                </label>
+                <input
+                  type="text"
+                  id={styles.firstName}
+                  value={firstName}
+                  required
+                  onChange={handleFirstNameChange}
+                />
+              </div>
+              <div>
+                {' '}
+                <label className={styles.edt_label} htmlFor={styles.lastName}>
+                  Last Name:{' '}
+                </label>
+                <input
+                  type="text"
+                  id={styles.lastName}
+                  value={lastName}
+                  required
+                  onChange={handleLastNameChange}
+                />
+              </div>
+              <div>
+                {' '}
+                <label className={styles.edt_label} htmlFor={styles.username}>
+                  Username:{' '}
+                </label>
+                <input
+                  type="text"
+                  id={styles.username}
+                  value={username}
+                  required
+                  onChange={handleUserNameChange}
+                />
+              </div>
+              <div>
+                {' '}
+                <label className={styles.edt_label} htmlFor={styles.email}>
+                  Email:{' '}
+                </label>
+                <input
+                  type="email"
+                  id={styles.email}
+                  value={email}
+                  required
+                  onChange={handleEmailChange}
+                />
+              </div>
+              <div>
+                {' '}
+                <label className={styles.edt_label} htmlFor={styles.bio}>
+                  Bio:{' '}
+                </label>
+                <textarea
+                  id={styles.bio}
+                  value={bio}
+                  onChange={handleBioChange}
+                />
+              </div>
+              <button type="submit">Submit Changes</button>
+              <Link to="#">
+                <button type="button">Change Password</button>
+              </Link>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   )

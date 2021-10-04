@@ -52,10 +52,11 @@
 
 #edt_form textarea {
   border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 #edt_form input:focus,
-#edt_form textarea {
+#edt_form textarea:focus {
   border: 1px solid var(--primary-accent);
   outline: none;
 }

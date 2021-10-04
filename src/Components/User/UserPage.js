@@ -51,7 +51,7 @@ function UserPage() {
         )}
       </div>
       <div id={styles.posts}>
-        <PostList id={id} />
+        <PostList id={id} access={access} />
       </div>
     </div>
   )

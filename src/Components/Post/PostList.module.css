@@ -22,6 +22,15 @@
   font-size: 1.75em;
 }
 
+#ttl_link {
+  color: var(--primary-dark);
+  display: inline-block;
+}
+
+#ttl_link:hover {
+  color: var(--primary-accent);
+}
+
 #bdy_prev {
   margin-bottom: 5px;
   line-height: 1.5;

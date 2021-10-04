@@ -7,6 +7,7 @@ import EditUser from './Components/User/EditUser'
 import Login from './Components/Login/Login'
 import SignUp from './Components/SignUp/SignUp'
 import Post from './Components/Post/Post'
+import EditPost from './Components/Post/EditPost'
 import ProtectedRoute from './Protected'
 
 import './App.css'
@@ -28,6 +29,9 @@ export default function App() {
             </ProtectedRoute>
             <ProtectedRoute path="/users/:id/edit">
               <EditUser />
+            </ProtectedRoute>
+            <ProtectedRoute path="/posts/:id/edit">
+              <EditPost />
             </ProtectedRoute>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
