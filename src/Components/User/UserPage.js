@@ -28,8 +28,10 @@ function UserPage() {
   }, [id])
 
   useEffect(() => {
-    const { _id } = auth.user
-    if (_id === id) setAccess(true)
+    if (auth.user) {
+      const { _id } = auth.user
+      if (_id === id) setAccess(true)
+    }
   }, [id])
 
   return (

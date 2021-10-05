@@ -3,12 +3,14 @@
 import { Route, Redirect } from 'react-router-dom'
 import { useAuth } from './auth'
 
-export default function ProtectedRoute({ children, ...rest }) {
+export default function ProtectedRoute({ component: Component, ...rest }) {
   const auth = useAuth()
   return (
     <Route
       {...rest}
-      render={() => (auth.user ? children : <Redirect to="/login" />)}
+      render={(props) =>
+        auth.user ? <Component {...props} /> : <Redirect to="/login" />
+      }
     />
   )
 }

@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import { useAuth } from '../../auth'
 import styles from './Login.module.css'
 import close from '../x.svg'
 
-function Login() {
+function Login({ history }) {
   const auth = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -26,6 +27,7 @@ function Login() {
     event.preventDefault()
     try {
       await auth.login(email, password)
+      history.push('/')
     } catch (err) {
       if (err.response) setLoginFail(err.response.data.message)
     }

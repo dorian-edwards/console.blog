@@ -15,11 +15,13 @@ function Desktop() {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>About</li>
           {auth.user ? (
             <>
               <li>
                 <Link to={`/users/${auth.user._id}`}>Profile</Link>
+              </li>
+              <li>
+                <Link to="/posts/new">Create</Link>
               </li>
               <li>
                 <button id={styles.sgnOut} type="button" onClick={auth.signOut}>
