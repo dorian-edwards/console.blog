@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import { useAuth } from '../../auth'
 import styles from './EditPost.module.css'
 
-function EditPost({ history, location }) {
+function EditPost({ history }) {
   const auth = useAuth()
   const [title, setTitle] = useState('')
   const [summary, setSummary] = useState('')

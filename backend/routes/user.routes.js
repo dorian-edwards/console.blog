@@ -6,8 +6,7 @@ const router = express.Router()
 
 router
   .route('/')
-  .all(authController.validate)
-  .get(userController.fetchAll)
+  .get(authController.validate, userController.fetchAll)
   .post(userController.create)
 
 router
