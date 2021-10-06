@@ -13,13 +13,19 @@ function Mobile() {
 
   return (
     <div className={styles['mbl-wrap']}>
-      <Link to="/" id={styles.logo}>
+      <Link
+        to="/"
+        id={styles.logo}
+        onClick={() => {
+          if (active) toggleActive()
+        }}
+      >
         <img src={logo} alt="open book icon" />
       </Link>
       <div id={styles.burger} onClick={toggleActive} role="button" tabIndex={0}>
         <img src={hamburger} alt="mobile hamburger icon" />
       </div>
-      {active && <SubMenu />}
+      {active && <SubMenu clear={toggleActive} />}
     </div>
   )
 }

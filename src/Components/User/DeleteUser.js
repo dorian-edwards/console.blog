@@ -1,0 +1,92 @@
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { useAuth } from '../../auth'
+import styles from './DeleteUser.module.css'
+
+const DeleteUser = ({ cancel }) => {
+  const { id } = useParams()
+  const history = useHistory()
+  const auth = useAuth()
+  const [confirm, setConfirm] = useState(false)
+  const [email, setEmail] = useState('')
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handleDelete = async () => {
+    try {
+      // eslint-disable-next-line no-undef
+      const body = document.querySelector('body')
+      const res = await axios.delete(
+        `http://localhost:8080/api/v1/users/${id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      if (res) {
+        auth.signOut()
+        body.style.overflow = 'auto'
+        history.push('/')
+      }
+    } catch (err) {
+      console.log({ err })
+    }
+  }
+
+  useEffect(() => {
+    if (email === auth.user.email) {
+      setConfirm(true)
+    } else {
+      setConfirm(false)
+    }
+  }, [email])
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.background} />
+      <div className={styles.display}>
+        <div>
+          <div id={styles.heading}>
+            To delete your profile, type your email address
+          </div>
+          <label htmlFor={styles.del}>
+            <input
+              type="text"
+              id={styles.email}
+              value={email}
+              onChange={handleEmail}
+            />
+          </label>
+          <div className={styles.btn_panel}>
+            <button
+              id={styles.del}
+              className={styles.btn}
+              disabled={!confirm}
+              type="button"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+            <button
+              id={styles.cncl}
+              className={styles.btn}
+              type="button"
+              onClick={cancel}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+DeleteUser.propTypes = {
+  cancel: PropTypes.func.isRequired,
+}
+
+export default DeleteUser
