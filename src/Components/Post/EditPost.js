@@ -1,9 +1,12 @@
+/* eslint-disable no-shadow */
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import styles from './EditPost.module.css'
+import DeletePost from './DeletePost'
 
 function EditPost() {
+  const [deletePrompt, setDeletePrompt] = useState(false)
   const [title, setTitle] = useState('')
   const [summary, setSummary] = useState('')
   const [body, setBody] = useState('')
@@ -37,6 +40,20 @@ function EditPost() {
     }
   }
 
+  const toggleDelete = (e) => {
+    // eslint-disable-next-line no-undef
+    const body = document.querySelector('body')
+    const buttonId = e.target.id
+    if (buttonId.startsWith('EditPost_del')) {
+      body.style.overflow = 'hidden'
+      setDeletePrompt(true)
+    }
+    if (buttonId.startsWith('DeletePost_cncl')) {
+      body.style.overflow = 'auto'
+      setDeletePrompt(false)
+    }
+  }
+
   useEffect(async () => {
     const res = await axios.get(`http://localhost:8080/api/v1/posts/${id}`)
     const { data } = res.data
@@ -47,6 +64,12 @@ function EditPost() {
 
   return (
     <div>
+      {deletePrompt && (
+        <>
+          <div id={styles.cover} />
+          <DeletePost cancel={toggleDelete} />
+        </>
+      )}
       <div className={styles.container}>
         <form id={styles.edt_form} onSubmit={handleSubmit}>
           <div>
@@ -91,6 +114,9 @@ function EditPost() {
             />
           </div>
           <button type="submit">Submit Changes</button>
+          <button type="button" id={styles.del} onClick={toggleDelete}>
+            Delete Post
+          </button>
         </form>
       </div>
     </div>

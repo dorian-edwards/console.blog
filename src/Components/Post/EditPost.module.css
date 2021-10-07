@@ -61,3 +61,18 @@
   font-size: 1.1rem;
   resize: none;
 }
+
+#del:hover {
+  cursor: pointer;
+}
+
+#cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: black;
+  opacity: 0.8;
+  z-index: 1;
+}
