@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link, useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
@@ -5,7 +6,8 @@ import { useState, useEffect } from 'react'
 import styles from './EditUser.module.css'
 
 function EditUser() {
-  const [img, setImg] = useState('')
+  const [img, setImg] = useState(null)
+  const [placeholder, setPlaceholder] = useState(null)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [username, setUserName] = useState('')
@@ -47,23 +49,28 @@ function EditUser() {
     setBio(e.target.value)
   }
 
+  const handleImgUpload = (e) => {
+    setImg(e.target.files[0])
+    document.querySelector('.placeholder').style.overflow = 'visible'
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const newUser = {
-        firstName,
-        lastName,
-        username,
-        email,
-        bio,
-      }
+      const formData = new FormData()
+      formData.append('firstName', firstName)
+      formData.append('lastName', lastName)
+      formData.append('username', username)
+      formData.append('email', email)
+      formData.append('bio', bio)
+      formData.append('img', img)
 
       const res = await axios.patch(
         `http://localhost:8080/api/v1/users/${id}`,
-        { ...newUser },
+        formData,
         { withCredentials: true }
       )
-      if (res) history.go(0)
+      if (res) history.push(`/users/${id}`)
     } catch (err) {
       console.log({ err })
     }
@@ -74,8 +81,9 @@ function EditUser() {
       <div className={styles.container}>
         <div id={styles.edt_wrapper}>
           <div id={styles.edt_image}>
-            <div id={styles.img_wrapper}>
-              <img src={img} alt="user specific" />
+            <div id={styles.img_wrapper} className="placeholder">
+              <input id={styles.upld} type="file" onChange={handleImgUpload} />
+              <img src={img} alt="user specified" />
             </div>
           </div>
           <div id={styles.edt_info}>

@@ -14,9 +14,11 @@
 
 #img_wrapper {
   margin: auto;
+  height: 200px;
   width: 75%;
   max-width: 300px;
   border-radius: 100%;
+  position: relative;
   overflow: hidden;
 }
 
@@ -83,6 +85,15 @@
   padding: 2px 5px;
   font-size: 1.1rem;
   resize: none;
+}
+
+#upld {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  opacity: 0;
 }
 
 @media screen and (min-width: 640px) {

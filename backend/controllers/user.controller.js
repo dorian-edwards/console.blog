@@ -1,9 +1,26 @@
+const multer = require('multer')
+const path = require('path')
 const { validationResult } = require('express-validator')
 const { checkEmail, checkPassword } = require('../validators/userValidation')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const User = require('../models/user')
 const Post = require('../models/post')
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/assets/uploads')
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.params.id + path.extname(file.originalname))
+  },
+})
+
+const fileFilter = (req, file, cb) => {
+  cb(null, true)
+}
+
+exports.upload = multer({ storage, fileFilter })
 
 exports.fetchAll = catchAsync(async (req, res, next) => {
   const users = await User.find()
@@ -51,9 +68,13 @@ exports.update = catchAsync(async (req, res, next) => {
     return next(errors.array())
   }
 
-  user.set({ ...req.body }) // <= seems to be the only way I can change isModified to true so the hashing function will run in the pre hook
+  user.set({ ...req.body, img: req.file.path.slice(6) }) // <= seems to be the only way I can change isModified to true so the hashing function will run in the pre hook
+  console.log(user)
   await user.save() // <= triggers my pre hook which doesn't run on findOneAndUpdate
   res.status(204).json({ status: 'success', data: user })
+  // console.log(req.body)
+  // console.log(req.file)
+  res.end()
 })
 
 exports.delete = catchAsync(async (req, res, next) => {

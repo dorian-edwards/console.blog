@@ -13,7 +13,11 @@ router
   .route('/:id')
   .all(authController.validate)
   .get(userController.fetchSingle)
-  .patch(authController.checkUser, userController.update)
+  .patch(
+    authController.checkUser,
+    userController.upload.single('img'),
+    userController.update
+  )
   .delete(authController.checkUser, userController.delete)
 
 router
