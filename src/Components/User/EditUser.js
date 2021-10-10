@@ -7,7 +7,6 @@ import styles from './EditUser.module.css'
 
 function EditUser() {
   const [img, setImg] = useState(null)
-  const [placeholder, setPlaceholder] = useState(null)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [username, setUserName] = useState('')
@@ -49,25 +48,41 @@ function EditUser() {
     setBio(e.target.value)
   }
 
-  const handleImgUpload = (e) => {
-    setImg(e.target.files[0])
-    document.querySelector('.placeholder').style.overflow = 'visible'
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleImgUpload = async (e) => {
     try {
+      // eslint-disable-next-line no-shadow
+      const img = e.target.files[0]
+      setImg(img)
       const formData = new FormData()
-      formData.append('firstName', firstName)
-      formData.append('lastName', lastName)
-      formData.append('username', username)
-      formData.append('email', email)
-      formData.append('bio', bio)
       formData.append('img', img)
 
       const res = await axios.patch(
         `http://localhost:8080/api/v1/users/${id}`,
         formData,
+        { withCredentials: true }
+      )
+      if (res) history.push(`/users/${id}`)
+    } catch (err) {
+      console.log({ err })
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const newUser = {
+        firstName,
+        lastName,
+        username,
+        email,
+        bio,
+      }
+
+      console.log(img)
+
+      const res = await axios.patch(
+        `http://localhost:8080/api/v1/users/${id}`,
+        { ...newUser },
         { withCredentials: true }
       )
       if (res) history.push(`/users/${id}`)

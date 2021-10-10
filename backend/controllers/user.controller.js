@@ -68,13 +68,10 @@ exports.update = catchAsync(async (req, res, next) => {
     return next(errors.array())
   }
 
-  user.set({ ...req.body, img: req.file.path.slice(6) }) // <= seems to be the only way I can change isModified to true so the hashing function will run in the pre hook
-  console.log(user)
+  user.set({ ...req.body }) // <= seems to be the only way I can change isModified to true so the hashing function will run in the pre hook
+  if (req.file) user.set({ img: req.file.path.slice(6) })
   await user.save() // <= triggers my pre hook which doesn't run on findOneAndUpdate
   res.status(204).json({ status: 'success', data: user })
-  // console.log(req.body)
-  // console.log(req.file)
-  res.end()
 })
 
 exports.delete = catchAsync(async (req, res, next) => {
