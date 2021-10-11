@@ -29,6 +29,11 @@ const userSchema = new Schema({
     required: [true, 'Please enter a valid email address'],
     unique: true,
   },
+  bio: {
+    type: String,
+    trim: true,
+    default: `Say something about yourself!`,
+  },
   img: {
     type: String,
     trim: true,

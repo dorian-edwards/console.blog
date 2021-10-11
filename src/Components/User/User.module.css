@@ -3,7 +3,7 @@
 #usr_img {
   width: 35px;
   height: 35px;
-  padding: 2.5px;
+  /* padding: 2.5px; */
   border-radius: 100%;
   background: var(--primary-dark);
   margin-right: 10px;
