@@ -1,26 +1,9 @@
-const multer = require('multer')
-const path = require('path')
 const { validationResult } = require('express-validator')
 const { checkEmail, checkPassword } = require('../validators/userValidation')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const User = require('../models/user')
 const Post = require('../models/post')
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/assets/uploads')
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.params.id + path.extname(file.originalname))
-  },
-})
-
-const fileFilter = (req, file, cb) => {
-  cb(null, true)
-}
-
-exports.upload = multer({ storage, fileFilter })
 
 exports.fetchAll = catchAsync(async (req, res, next) => {
   const users = await User.find()

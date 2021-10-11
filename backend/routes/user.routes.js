@@ -1,6 +1,7 @@
 const express = require('express')
 const authController = require('../controllers/auth.controller')
 const userController = require('../controllers/user.controller')
+const imgUpload = require('../utils/imgUpload')
 
 const router = express.Router()
 
@@ -13,11 +14,7 @@ router
   .route('/:id')
   .all(authController.validate)
   .get(userController.fetchSingle)
-  .patch(
-    authController.checkUser,
-    userController.upload.single('img'),
-    userController.update
-  )
+  .patch(authController.checkUser, imgUpload('img'), userController.update)
   .delete(authController.checkUser, userController.delete)
 
 router

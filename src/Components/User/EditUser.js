@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link, useParams, useHistory } from 'react-router-dom'
@@ -52,7 +54,7 @@ function EditUser() {
     try {
       // eslint-disable-next-line no-shadow
       const img = e.target.files[0]
-      setImg(img)
+
       const formData = new FormData()
       formData.append('img', img)
 
@@ -77,8 +79,6 @@ function EditUser() {
         email,
         bio,
       }
-
-      console.log(img)
 
       const res = await axios.patch(
         `http://localhost:8080/api/v1/users/${id}`,

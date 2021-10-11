@@ -13,19 +13,16 @@
 }
 
 #img_wrapper {
-  margin: auto;
   height: 200px;
-  width: 75%;
+  width: 90%;
   max-width: 300px;
   border-radius: 100%;
   position: relative;
-  overflow: hidden;
 }
 
 #img_wrapper img {
   width: 100%;
   height: auto;
-  object-fit: cover;
 }
 
 #edt_image {
