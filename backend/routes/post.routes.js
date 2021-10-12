@@ -25,4 +25,6 @@ router
     postController.delete
   )
 
+router.post('/:id/like', authController.validate, postController.toggleLike)
+
 module.exports = router

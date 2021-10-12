@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const Post = require('../models/post')
 const User = require('../models/user')
 const catchAsync = require('../utils/catchAsync')
@@ -52,4 +53,19 @@ exports.delete = catchAsync(async (req, res, next) => {
   const post = await Post.findByIdAndDelete(req.params.id)
   if (!post) return next(new AppError('Post not found', 404))
   res.status(204).json({ status: 'success', data: post })
+})
+
+exports.toggleLike = catchAsync(async (req, res, next) => {
+  const { id } = req.user
+  const post = await Post.findById(req.params.id)
+
+  const index = post.likes.indexOf(mongoose.Types.ObjectId(id))
+  if (index === -1) {
+    post.likes.push(id)
+  } else {
+    post.likes.splice(index, 1)
+  }
+
+  await post.save()
+  res.status(200).json({ status: 'success', data: post })
 })

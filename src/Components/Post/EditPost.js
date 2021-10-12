@@ -125,7 +125,6 @@ function EditPost() {
               Body:{' '}
             </label>
             <textarea
-              name="body"
               id={styles.body}
               onChange={handleBodyChange}
               value={body}

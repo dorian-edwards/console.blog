@@ -11,6 +11,10 @@
   margin-bottom: 20px;
 }
 
+#pst_wrapper {
+  margin-bottom: 15px;
+}
+
 #pst_body {
   letter-spacing: 1px;
   line-height: 2;
@@ -20,4 +24,74 @@
 
 #time_stmp {
   padding-left: 10px;
+}
+
+#interact {
+  width: 100%;
+  /* max-width: 600px; */
+  border-radius: 3px;
+  padding: 2.5px;
+  margin-bottom: 20px;
+}
+
+#commentInput {
+  width: 100%;
+  height: 40px;
+  padding: 5px 5px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  font-size: 1.1rem;
+  margin-top: 10px;
+  resize: none;
+}
+
+#submit {
+  margin-top: 10px;
+  padding: 1px 10px;
+  font-size: 1.3rem;
+  background: var(--primary-dark);
+  color: var(--primary-light);
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  position: relative;
+  right: 0;
+}
+
+#submit:disabled {
+  cursor: auto;
+  opacity: 0.1;
+}
+
+#fav,
+#cmt {
+  background: none;
+  border: none;
+}
+
+#fav img,
+#cmt img {
+  filter: invert(68%) sepia(20%) saturate(4074%) hue-rotate(326deg)
+    brightness(100%) contrast(88%);
+  cursor: pointer;
+}
+
+#commentSection li {
+  margin-bottom: 10px;
+}
+
+.comment {
+  background: var(--secondary-light);
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.centerVert {
+  display: flex;
+  align-items: center;
+}
+
+.flexEnd {
+  display: flex;
+  justify-content: right;
 }
