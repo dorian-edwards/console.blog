@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-shadow */
 import axios from 'axios'
 import { useState, useEffect } from 'react'
@@ -10,6 +11,7 @@ function EditPost() {
   const [title, setTitle] = useState('')
   const [summary, setSummary] = useState('')
   const [body, setBody] = useState('')
+  const [img, setImg] = useState('')
   const { id } = useParams()
   const history = useHistory()
 
@@ -40,6 +42,24 @@ function EditPost() {
     }
   }
 
+  const handleImageUpload = async (e) => {
+    try {
+      const upload = e.target.files[0]
+      const formData = new FormData()
+      formData.append('img', upload)
+
+      const res = await axios.patch(
+        `http://localhost:8080/api/v1/posts/${id}`,
+        formData,
+        { withCredentials: true }
+      )
+
+      if (res) history.push(`/posts/${id}`)
+    } catch (err) {
+      console.log({ err })
+    }
+  }
+
   const toggleDelete = (e) => {
     // eslint-disable-next-line no-undef
     const body = document.querySelector('body')
@@ -60,6 +80,7 @@ function EditPost() {
     setTitle(data.title)
     setSummary(data.summary)
     setBody(data.body)
+    setImg(data.img)
   }, [id])
 
   return (
@@ -79,7 +100,6 @@ function EditPost() {
             </label>
             <input
               type="text"
-              name="title"
               id={styles.title}
               onChange={handleTitleChange}
               value={title}
@@ -93,7 +113,6 @@ function EditPost() {
             </label>
             <input
               type="text"
-              name="summary"
               id={styles.sum}
               onChange={handleSumChange}
               value={summary}
@@ -112,6 +131,19 @@ function EditPost() {
               value={body}
               required
             />
+          </div>
+          <div>
+            <label className={styles.edt_label} htmlFor={styles.upload}>
+              Title Background
+            </label>
+            <input
+              type="file"
+              id={styles.upload}
+              onChange={handleImageUpload}
+            />
+          </div>
+          <div>
+            <img src={img} alt="user specified" id={styles.img} />
           </div>
           <button type="submit">Submit Changes</button>
           <button type="button" id={styles.del} onClick={toggleDelete}>

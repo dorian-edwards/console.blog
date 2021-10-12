@@ -12,10 +12,12 @@ function Login({ history }) {
   const [loginFail, setLoginFail] = useState('')
 
   const handleEmail = (event) => {
+    if (loginFail) setLoginFail('')
     setEmail(event.target.value)
   }
 
   const handlePassword = (event) => {
+    if (loginFail) setLoginFail('')
     setPassword(event.target.value)
   }
 
@@ -29,7 +31,11 @@ function Login({ history }) {
       await auth.login(email, password)
       history.push('/')
     } catch (err) {
-      if (err.response) setLoginFail(err.response.data.message)
+      if (err.response) {
+        setLoginFail(err.response.data.message)
+        setEmail('')
+        setPassword('')
+      }
     }
   }
 

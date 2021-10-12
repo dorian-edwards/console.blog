@@ -37,11 +37,13 @@ exports.fetchSingle = catchAsync(async (req, res, next) => {
 })
 
 exports.update = catchAsync(async (req, res, next) => {
-  const post = await Post.findByIdAndUpdate(
-    req.params.id,
-    { ...req.body },
-    { runValidators: true, new: true }
-  )
+  const newPost = { ...req.body }
+  if (req.file) newPost.img = req.file.path.slice(6)
+
+  const post = await Post.findByIdAndUpdate(req.params.id, newPost, {
+    runValidators: true,
+    new: true,
+  })
   if (!post) return next(new AppError('Post not found', 404))
   res.status(200).json({ status: 'success', data: post })
 })

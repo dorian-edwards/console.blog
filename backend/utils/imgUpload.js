@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 })
 
 const fileFilter = (req, file, cb) => {
-  const acceptedFiles = ['.avif', '.jpeg', '.jpg', '.png']
+  const acceptedFiles = ['.avif', '.jpeg', '.jpg', '.png', '.webp']
   const ext = path.extname(file.originalname)
   if (acceptedFiles.includes(ext)) return cb(null, true)
   cb(null, false)

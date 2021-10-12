@@ -76,3 +76,8 @@
   opacity: 0.8;
   z-index: 1;
 }
+
+#img {
+  max-width: 300px;
+  height: auto;
+}

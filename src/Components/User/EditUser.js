@@ -52,11 +52,10 @@ function EditUser() {
 
   const handleImgUpload = async (e) => {
     try {
-      // eslint-disable-next-line no-shadow
-      const img = e.target.files[0]
+      const upload = e.target.files[0]
 
       const formData = new FormData()
-      formData.append('img', img)
+      formData.append('img', upload)
 
       const res = await axios.patch(
         `http://localhost:8080/api/v1/users/${id}`,

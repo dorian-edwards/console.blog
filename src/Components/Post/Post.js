@@ -1,12 +1,15 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
+import { useAuth } from '../../auth'
 import styles from './Post.module.css'
 import User from '../User/User'
 import Display from '../Display/Display'
 
 function Post() {
+  const auth = useAuth()
   const [post, setPost] = useState(null)
+  const [access, setAccess] = useState(false)
   const [timeStamp, setTimeStamp] = useState(null)
   const { id } = useParams()
 
@@ -16,7 +19,10 @@ function Post() {
         withCredentials: true,
       })
       const { data } = res.data
+      const { _id } = data.author
       setPost(data)
+
+      if (_id === auth.user._id) setAccess(true)
 
       const stamp =
         data.createdAt === data.updatedAt
@@ -32,7 +38,13 @@ function Post() {
   return (
     post && (
       <div>
-        <Display post={post} />
+        {access ? (
+          <Link to={`/posts/${id}/edit`}>
+            <Display post={post} />
+          </Link>
+        ) : (
+          <Display post={post} />
+        )}
         <div className={styles.container}>
           <div id={styles.heading}>
             <User author={post.author} />
