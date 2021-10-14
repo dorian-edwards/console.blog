@@ -59,12 +59,18 @@ function Post() {
         }
       }
 
+      // this counts like additions or removals as a modification
+      // in order to record whether or not a post was edited I'll
+      // need a custom method on update...
+      /*
       const stamp =
         data.createdAt === data.updatedAt
           ? new Date(data.createdAt)
           : new Date(data.updatedAt)
+      */
 
-      setTimeStamp(stamp.toDateString())
+      const stamp = new Date(data.createdAt).toDateString()
+      setTimeStamp(stamp)
       setLikes(data.likes.length)
     } catch (err) {
       console.log({ err })

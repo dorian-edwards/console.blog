@@ -25,12 +25,8 @@ function Home() {
       <ul>
         {posts &&
           posts.map((entry) => {
-            let date
-            if (entry.createdAt !== entry.updatedAt) {
-              date = new Date(entry.updatedAt).toDateString()
-            } else {
-              date = new Date(entry.createdAt).toDateString()
-            }
+            const date = new Date(entry.createdAt).toDateString()
+
             return (
               <div className={styles.pst_wrapper} key={entry._id}>
                 <div id={styles.article_wrapper}>
