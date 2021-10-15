@@ -13,7 +13,8 @@ function Post() {
   const [timeStamp, setTimeStamp] = useState(null)
   const [favorite, setFavorite] = useState('favBlack')
   const [comment, setComment] = useState('')
-  const [comments, setComments] = useState(true)
+  const [comments, setComments] = useState(false)
+  const [commentCount, setCommentCount] = useState(0)
   const [likes, setLikes] = useState(0)
   const { id } = useParams()
 
@@ -36,8 +37,21 @@ function Post() {
     setComment(e.target.value)
   }
 
-  const handleSubmit = (e) => {
-    // todo
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await axios.post(
+        `http://localhost:8080/api/v1/posts/${id}/comment`,
+        { body: comment },
+        { withCredentials: true }
+      )
+      if (res) {
+        setComment('')
+        setCommentCount(commentCount + 1)
+      }
+    } catch (err) {
+      console.log({ err })
+    }
   }
 
   useEffect(async () => {
@@ -75,7 +89,17 @@ function Post() {
     } catch (err) {
       console.log({ err })
     }
-  }, [id, comments, likes])
+  }, [id, likes])
+
+  useEffect(async () => {
+    const res = await axios.get(
+      `http://localhost:8080/api/v1/posts/${id}/comment`,
+      { withCredentials: true }
+    )
+    const { data } = res.data
+    setComments(data)
+    setCommentCount(data.length)
+  }, [commentCount])
 
   return (
     post && (
@@ -99,7 +123,10 @@ function Post() {
             <div id={styles.fav_wrapper}>
               <div className={styles.centerVert}>
                 <button id={styles.fav} type="button" onClick={handleFav}>
-                  <img src={`/assets/img/${favorite}.png`} alt="" />
+                  <img
+                    src={`/assets/img/${auth.user ? favorite : 'favBlack'}.png`}
+                    alt=""
+                  />
                 </button>
                 <div>{post.likes.length || ''}</div>
               </div>
@@ -109,6 +136,7 @@ function Post() {
                     id={styles.commentInput}
                     value={comment}
                     onChange={handleComment}
+                    disabled={!auth.user}
                     required
                   />
                 </label>
@@ -119,18 +147,17 @@ function Post() {
                 </div>
               </form>
             </div>
-            {comments && (
-              <ul id={styles.commentSection}>
-                <li className={styles.comment}>
-                  <p>I didn&apos;t like this article at all...</p>
-                  <p>- dorian</p>
-                </li>
-                <li className={styles.comment}>
-                  <p>Yeah this post was dumb brah...</p>
-                  <p>- steve</p>
-                </li>
-              </ul>
-            )}
+
+            <ul id={styles.commentSection}>
+              {comments &&
+                comments.map((entry) => (
+                  <li className={styles.comment} key={entry._id}>
+                    <div>{new Date(entry.createdAt).toDateString()}</div>
+                    <div>{entry.body}</div>
+                    <div>- {entry.author.username}</div>
+                  </li>
+                ))}
+            </ul>
           </div>
         </div>
       </div>

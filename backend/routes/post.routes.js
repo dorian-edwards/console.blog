@@ -27,4 +27,9 @@ router
 
 router.post('/:id/like', authController.validate, postController.toggleLike)
 
+router
+  .route('/:id/comment')
+  .post(authController.validate, postController.addComment)
+  .get(postController.getComments)
+
 module.exports = router

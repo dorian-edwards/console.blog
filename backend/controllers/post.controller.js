@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
 const Post = require('../models/post')
 const User = require('../models/user')
+const Comment = require('../models/comment')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 
 exports.fetchAll = catchAsync(async (req, res, next) => {
-  const posts = await Post.find()
-    .populate({ path: 'author', select: 'username img' })
-    .exec()
+  const posts = await Post.find().populate({
+    path: 'author',
+    select: 'username img',
+  })
   if (!posts) return next()
   res.status(200).json({
     status: 'success',
@@ -55,7 +57,7 @@ exports.delete = catchAsync(async (req, res, next) => {
   res.status(204).json({ status: 'success', data: post })
 })
 
-exports.toggleLike = catchAsync(async (req, res, next) => {
+exports.toggleLike = catchAsync(async (req, res) => {
   const { id } = req.user
   const post = await Post.findById(req.params.id)
 
@@ -68,4 +70,28 @@ exports.toggleLike = catchAsync(async (req, res, next) => {
 
   await post.save()
   res.status(200).json({ status: 'success', data: post })
+})
+
+exports.addComment = catchAsync(async (req, res) => {
+  const comment = new Comment({
+    post: req.params.id,
+    author: req.user._id,
+    ...req.body,
+  })
+  await comment.save()
+  res.status(200).json({ status: 200, data: comment })
+})
+
+exports.getComments = catchAsync(async (req, res) => {
+  const comments = await Comment.find({ post: req.params.id })
+    .populate({
+      path: 'author',
+      select: 'username',
+    })
+    .sort({ createdAt: 'desc' })
+  res.status(200).json({
+    status: 'success',
+    results: comments.length,
+    data: comments,
+  })
 })
