@@ -47,7 +47,6 @@ function Login({ history }) {
         <label htmlFor={styles.email}>Email: </label>
         <input
           type="email"
-          name="email"
           id={styles.email}
           value={email}
           onChange={handleEmail}
@@ -56,7 +55,6 @@ function Login({ history }) {
         <label htmlFor={styles.password}>Password: </label>
         <input
           type="password"
-          name="password"
           id={styles.password}
           value={password}
           onChange={handlePassword}

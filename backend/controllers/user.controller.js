@@ -38,14 +38,20 @@ exports.fetchSingle = catchAsync(async (req, res, next) => {
 
 exports.update = catchAsync(async (req, res, next) => {
   const { id } = req.params
-  const user = await User.findById(id)
+  const user = await User.findById(id).select('+password')
   if (!user) return next(new AppError('User not found', 404))
 
   // if email is contained in req.body, will need to verify it.
   // if password is in body, will need to confirm that it, and confirm password, match
 
   if (req.body.email) await checkEmail(req)
-  if (req.body.password) await checkPassword(req)
+  if (req.body.password || req.body.newPassword) {
+    const { password } = req.body
+    if (!(await user.checkPassword(password)))
+      return next(new AppError('Invalid Password', 401))
+    await checkPassword(req)
+    req.body.password = req.body.newPassword
+  }
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return next(errors.array())
@@ -55,6 +61,10 @@ exports.update = catchAsync(async (req, res, next) => {
   if (req.file) user.set({ img: req.file.path.slice(6) })
   await user.save() // <= triggers my pre hook which doesn't run on findOneAndUpdate
   res.status(204).json({ status: 'success', data: user })
+})
+
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  res.send('hey')
 })
 
 exports.delete = catchAsync(async (req, res, next) => {

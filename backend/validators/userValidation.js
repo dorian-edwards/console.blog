@@ -29,13 +29,13 @@ exports.checkEmail = async (req) => {
 }
 
 exports.checkPassword = async (req) => {
-  await body('password')
+  await body('newPassword')
     .isLength({ min: 6 })
     .withMessage('Please enter a password at least 6 characters in length')
     .run(req)
   await body('confirmPassword')
     .custom((val) => {
-      if (val !== req.body.password) {
+      if (val !== req.body.newPassword) {
         return false
       }
       return true

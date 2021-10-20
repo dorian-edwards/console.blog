@@ -1,0 +1,97 @@
+@import url('../../App.css');
+
+#lgn_form label {
+  font-size: 1.75rem;
+}
+
+.container {
+  width: 95%;
+  max-width: 500px;
+  margin: auto;
+  padding: 20px 10px 50px 10px;
+  background: var(--secondary-light);
+  border-radius: 5px;
+}
+
+.container div {
+  margin: 1rem 0;
+}
+
+#lgn_form {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  grid-row-gap: 30px;
+  grid-column-gap: 10px;
+}
+
+#lgn_form h1 {
+  text-align: center;
+  grid-column: 1/3;
+  letter-spacing: 1.5px;
+}
+
+#lgn_form button {
+  margin-top: 20px;
+  grid-column: 1/3;
+  height: 35px;
+  font-size: 1.3rem;
+  background: var(--primary-dark);
+  color: var(--primary-light);
+  border: none;
+  border-radius: 3px;
+}
+
+#lgn_form input {
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 3px;
+  padding: 1px 3px;
+}
+
+#lgn_form input:focus {
+  border: 1px solid var(--primary-accent);
+  outline: none;
+}
+
+#error {
+  position: absolute;
+  background: var(--error-bkgrd);
+  color: var(--error-msg);
+  padding: 5px 10px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+}
+
+#error button {
+  border: none;
+  padding: 0;
+  background: none;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+#close {
+  display: inline-block;
+  width: 18px;
+  background: var(--primary-light);
+  padding: 0.5px;
+  border-radius: 100%;
+  margin-left: 5px;
+}
+
+@media screen and (max-width: 500px) {
+  #lgn_form {
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+  }
+
+  #lgn_form label,
+  #lgn_form input {
+    grid-column: 1;
+  }
+
+  #lgn_form input {
+    height: 25px;
+  }
+}

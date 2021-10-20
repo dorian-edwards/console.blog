@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link, useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
@@ -166,7 +165,7 @@ function EditUser() {
                 />
               </div>
               <button type="submit">Submit Changes</button>
-              <Link to="#">
+              <Link to={`/users/${id}/reset`}>
                 <button type="button">Change Password</button>
               </Link>
             </form>
