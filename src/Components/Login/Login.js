@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { useAuth } from '../../auth'
 import styles from './Login.module.css'
-import close from '../x.svg'
+import close from '../../icons/x.svg'
 
 function Login({ history }) {
   const auth = useAuth()

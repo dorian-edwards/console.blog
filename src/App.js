@@ -34,6 +34,7 @@ export default function App() {
             <ProtectedRoute path="/users/:id/reset" component={PasswordReset} />
           </Switch>
         </div>
+        <Footer />
       </Router>
     </ProvideAuth>
   )

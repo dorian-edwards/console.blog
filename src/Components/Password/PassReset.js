@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../../auth'
 import styles from './PassReset.module.css'
-import close from '../x.svg'
 
 function PasswordReset({ history }) {
   const auth = useAuth()
@@ -12,7 +11,6 @@ function PasswordReset({ history }) {
   const [oldPassword, setOldPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [resetFail, setResetFail] = useState('')
 
   const handleOldPassword = (e) => {
     setOldPassword(e.target.value)
@@ -24,10 +22,6 @@ function PasswordReset({ history }) {
 
   const handleConfirmPassword = (e) => {
     setConfirmPassword(e.target.value)
-  }
-
-  const closeError = () => {
-    setResetFail('')
   }
 
   const handleSubmit = async (e) => {
@@ -85,14 +79,6 @@ function PasswordReset({ history }) {
 
         <button type="submit">Change Password</button>
       </form>
-      {resetFail && (
-        <div id={styles.error}>
-          {resetFail}
-          <button type="button" onClick={closeError}>
-            <img id={styles.close} src={close} alt="x close icon" />
-          </button>
-        </div>
-      )}
     </div>
   )
 }

@@ -1,1 +1,33 @@
 @import url('../../App.css');
+
+#mainFtr {
+  width: 100%;
+  background: var(--primary-dark);
+  padding: 0.75rem;
+  margin-top: auto;
+  color: #f7f7f7;
+  font-size: 24px;
+}
+
+#mainFtr li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.container {
+  width: 95%;
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+#mainFtr a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#mainFtr a:hover,
+#mainFtr button:hover {
+  color: var(--primary-accent);
+}
