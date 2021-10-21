@@ -1,0 +1,109 @@
+@import url('../../App.css');
+
+#loading {
+  width: 95%;
+  max-width: 1100px;
+  margin: auto;
+  font-size: 50px;
+}
+
+#text {
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-name: flash;
+}
+
+#dot_1,
+#dot_2,
+#dot_3 {
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+#dot_1 {
+  animation-name: first;
+}
+
+#dot_2 {
+  animation-name: second;
+}
+
+#dot_3 {
+  animation-name: third;
+}
+
+@keyframes first {
+  from {
+    color: var(--primary-accent);
+  }
+
+  25% {
+    color: var(--primary-dark);
+  }
+
+  75% {
+    color: var(--primary-dark);
+  }
+
+  to {
+    color: var(--primary-accent);
+  }
+}
+
+@keyframes second {
+  from {
+    color: var(--primary-dark);
+  }
+
+  25% {
+    color: var(--primary-accent);
+  }
+
+  75% {
+    color: var(--primary-dark);
+  }
+
+  to {
+    color: var(--primary-dark);
+  }
+}
+
+@keyframes third {
+  from {
+    color: var(--primary-dark);
+  }
+
+  25% {
+    color: var(--primary-dark);
+  }
+
+  75% {
+    color: var(--primary-accent);
+  }
+
+  to {
+    color: var(--primary-dark);
+  }
+}
+
+@keyframes flash {
+  from {
+    color: var(--secondary-dark);
+    opacity: 0.2;
+  }
+
+  25% {
+    color: var(--primary-dark);
+    opacity: 0.4;
+  }
+
+  75% {
+    color: var(--primary-accent);
+    opacity: 0.5;
+  }
+
+  to {
+    color: var(--secondary-dark);
+    opacity: 0.2;
+  }
+}

@@ -4,9 +4,11 @@
 import { Link, useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import Loading from '../Loading/Loading'
 import styles from './EditUser.module.css'
 
 function EditUser() {
+  const [isLoading, setLoading] = useState(true)
   const [img, setImg] = useState(null)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -28,6 +30,7 @@ function EditUser() {
       setUserName(data.username)
       setEmail(data.email)
       setBio(data.bio)
+      setLoading(false)
     } catch (err) {
       console.log({ err })
     }
@@ -91,87 +94,98 @@ function EditUser() {
 
   return (
     <div>
-      <div className={styles.container}>
-        <div id={styles.edt_wrapper}>
-          <div id={styles.edt_image}>
-            <div id={styles.img_wrapper} className="placeholder">
-              <input id={styles.upld} type="file" onChange={handleImgUpload} />
-              <img src={img} alt="user specified" />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className={styles.container}>
+          <div id={styles.edt_wrapper}>
+            <div id={styles.edt_image}>
+              <div id={styles.img_wrapper} className="placeholder">
+                <input
+                  id={styles.upld}
+                  type="file"
+                  onChange={handleImgUpload}
+                />
+                <img src={img} alt="user specified" />
+              </div>
+            </div>
+            <div id={styles.edt_info}>
+              <form id={styles.edt_form} onSubmit={handleSubmit}>
+                <div>
+                  {' '}
+                  <label
+                    className={styles.edt_label}
+                    htmlFor={styles.firstName}
+                  >
+                    First Name:{' '}
+                  </label>
+                  <input
+                    type="text"
+                    id={styles.firstName}
+                    value={firstName}
+                    required
+                    onChange={handleFirstNameChange}
+                  />
+                </div>
+                <div>
+                  {' '}
+                  <label className={styles.edt_label} htmlFor={styles.lastName}>
+                    Last Name:{' '}
+                  </label>
+                  <input
+                    type="text"
+                    id={styles.lastName}
+                    value={lastName}
+                    required
+                    onChange={handleLastNameChange}
+                  />
+                </div>
+                <div>
+                  {' '}
+                  <label className={styles.edt_label} htmlFor={styles.username}>
+                    Username:{' '}
+                  </label>
+                  <input
+                    type="text"
+                    id={styles.username}
+                    value={username}
+                    required
+                    onChange={handleUserNameChange}
+                  />
+                </div>
+                <div>
+                  {' '}
+                  <label className={styles.edt_label} htmlFor={styles.email}>
+                    Email:{' '}
+                  </label>
+                  <input
+                    type="email"
+                    id={styles.email}
+                    value={email}
+                    required
+                    onChange={handleEmailChange}
+                  />
+                </div>
+                <div>
+                  {' '}
+                  <label className={styles.edt_label} htmlFor={styles.bio}>
+                    Bio:{' '}
+                  </label>
+                  <textarea
+                    id={styles.bio}
+                    value={bio}
+                    onChange={handleBioChange}
+                  />
+                </div>
+                <button type="submit">Submit Changes</button>
+                <Link to={`/users/${id}/reset`}>
+                  <button type="button">Change Password</button>
+                </Link>
+              </form>
             </div>
           </div>
-          <div id={styles.edt_info}>
-            <form id={styles.edt_form} onSubmit={handleSubmit}>
-              <div>
-                {' '}
-                <label className={styles.edt_label} htmlFor={styles.firstName}>
-                  First Name:{' '}
-                </label>
-                <input
-                  type="text"
-                  id={styles.firstName}
-                  value={firstName}
-                  required
-                  onChange={handleFirstNameChange}
-                />
-              </div>
-              <div>
-                {' '}
-                <label className={styles.edt_label} htmlFor={styles.lastName}>
-                  Last Name:{' '}
-                </label>
-                <input
-                  type="text"
-                  id={styles.lastName}
-                  value={lastName}
-                  required
-                  onChange={handleLastNameChange}
-                />
-              </div>
-              <div>
-                {' '}
-                <label className={styles.edt_label} htmlFor={styles.username}>
-                  Username:{' '}
-                </label>
-                <input
-                  type="text"
-                  id={styles.username}
-                  value={username}
-                  required
-                  onChange={handleUserNameChange}
-                />
-              </div>
-              <div>
-                {' '}
-                <label className={styles.edt_label} htmlFor={styles.email}>
-                  Email:{' '}
-                </label>
-                <input
-                  type="email"
-                  id={styles.email}
-                  value={email}
-                  required
-                  onChange={handleEmailChange}
-                />
-              </div>
-              <div>
-                {' '}
-                <label className={styles.edt_label} htmlFor={styles.bio}>
-                  Bio:{' '}
-                </label>
-                <textarea
-                  id={styles.bio}
-                  value={bio}
-                  onChange={handleBioChange}
-                />
-              </div>
-              <button type="submit">Submit Changes</button>
-              <Link to={`/users/${id}/reset`}>
-                <button type="button">Change Password</button>
-              </Link>
-            </form>
-          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
