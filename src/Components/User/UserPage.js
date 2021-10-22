@@ -71,9 +71,11 @@ function UserPage() {
               {user && <UserCard user={user} />}
               {access && (
                 <div>
-                  <ul>
+                  <ul id={styles.ctrl_panel}>
                     <li>
-                      <Link to={`/users/${id}/edit`}>Edit</Link>
+                      <Link to={`/users/${id}/edit`}>
+                        <button type="button">Edit</button>
+                      </Link>
                     </li>
                     <li>
                       <button

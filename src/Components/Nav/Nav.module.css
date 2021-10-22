@@ -9,9 +9,11 @@
   z-index: 1;
 }
 
-#mainNav a {
+#mainNav a,
+#mainNav button {
   text-decoration: none;
   color: inherit;
+  transition: color 500ms ease-in-out;
 }
 
 #mainNav a:hover,

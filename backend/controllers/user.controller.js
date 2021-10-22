@@ -4,6 +4,7 @@ const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const User = require('../models/user')
 const Post = require('../models/post')
+const Comment = require('../models/comment')
 
 exports.fetchAll = catchAsync(async (req, res, next) => {
   const users = await User.find()
@@ -73,6 +74,7 @@ exports.delete = catchAsync(async (req, res, next) => {
   if (!user) return next(new AppError(`Could not find this user`, 404))
 
   await Post.deleteMany({ author: id })
+  await Comment.deleteMany({ author: id })
   res.status(200).json({ status: 'success', data: user })
 })
 

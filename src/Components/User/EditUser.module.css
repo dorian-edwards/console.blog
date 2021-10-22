@@ -70,9 +70,11 @@
   color: var(--primary-light);
   border: none;
   border-radius: 3px;
+  transition: color 500ms ease-in-out;
 }
 
 #edt_form button:hover {
+  color: var(--primary-accent);
   cursor: pointer;
 }
 

@@ -52,8 +52,10 @@ exports.update = catchAsync(async (req, res, next) => {
 })
 
 exports.delete = catchAsync(async (req, res, next) => {
-  const post = await Post.findByIdAndDelete(req.params.id)
+  const { id } = req.params
+  const post = await Post.findByIdAndDelete(id)
   if (!post) return next(new AppError('Post not found', 404))
+  await Comment.deleteMany({ post: id })
   res.status(204).json({ status: 'success', data: post })
 })
 
