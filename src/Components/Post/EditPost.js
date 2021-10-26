@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import Loading from '../Loading/Loading'
+import Error from '../Error/Error'
 import styles from './EditPost.module.css'
 import DeletePost from './DeletePost'
 
@@ -14,6 +15,7 @@ function EditPost() {
   const [summary, setSummary] = useState('')
   const [body, setBody] = useState('')
   const [img, setImg] = useState('')
+  const [error, setError] = useState('')
   const { id } = useParams()
   const history = useHistory()
 
@@ -40,7 +42,7 @@ function EditPost() {
       )
       if (res) history.go(0)
     } catch (err) {
-      console.log({ err })
+      setError(err)
     }
   }
 
@@ -58,7 +60,7 @@ function EditPost() {
 
       if (res) history.push(`/posts/${id}`)
     } catch (err) {
-      console.log({ err })
+      setError(err)
     }
   }
 
@@ -159,6 +161,7 @@ function EditPost() {
           </div>
         )}
       </div>
+      {error && <Error err={error} setError={setError} />}
     </div>
   )
 }

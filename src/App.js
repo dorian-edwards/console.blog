@@ -10,6 +10,7 @@ import Post from './Components/Post/Post'
 import CreatePost from './Components/Post/CreatePost'
 import EditPost from './Components/Post/EditPost'
 import EditUser from './Components/User/EditUser'
+import PageNotFound from './Components/PageNotFound/PageNotFound'
 import PasswordReset from './Components/Password/PassReset'
 import ProtectedRoute from './Protected'
 
@@ -32,6 +33,7 @@ export default function App() {
             <ProtectedRoute exact path="/users/:id" component={UserPage} />
             <ProtectedRoute path="/users/:id/edit" component={EditUser} />
             <ProtectedRoute path="/users/:id/reset" component={PasswordReset} />
+            <Route component={PageNotFound} />
           </Switch>
         </div>
         <Footer />

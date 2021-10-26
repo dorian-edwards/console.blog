@@ -6,6 +6,7 @@ import styles from './Post.module.css'
 import User from '../User/User'
 import Display from '../Display/Display'
 import Loading from '../Loading/Loading'
+import Error from '../Error/Error'
 
 function Post() {
   const auth = useAuth()
@@ -17,6 +18,7 @@ function Post() {
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState(false)
   const [commentCount, setCommentCount] = useState(0)
+  const [error, setError] = useState('')
   const [likes, setLikes] = useState(0)
   const { id } = useParams()
 
@@ -31,7 +33,7 @@ function Post() {
         if (res) setLikes(res.data.data.likes.length)
       }
     } catch (err) {
-      console.log({ err })
+      setError(err)
     }
   }
 
@@ -52,7 +54,7 @@ function Post() {
         setCommentCount(commentCount + 1)
       }
     } catch (err) {
-      console.log({ err })
+      setError(err)
     }
   }
 
@@ -80,7 +82,7 @@ function Post() {
       setLikes(data.likes.length)
       setLoading(false)
     } catch (err) {
-      console.log({ err })
+      setError(err)
     }
   }, [id, likes])
 
@@ -162,6 +164,7 @@ function Post() {
               </ul>
             </div>
           </div>
+          {error && <Error err={error} setError={setError} />}
         </div>
       )}
     </>

@@ -1,5 +1,7 @@
 const AppError = require('./appError')
 
+const capitalize = (string) => string[0].toUpperCase() + string.slice(1)
+
 const handleCastError = (err) => {
   const message = `Invalid ${err.path}: ${err.value}`
   return new AppError(message, 400)
@@ -8,7 +10,9 @@ const handleCastError = (err) => {
 const handleDuplicateError = (err) => {
   const [key, value] = Object.entries(err.keyValue)[0]
 
-  const message = `${key} ${value} is already in use. Please choose another ${key}.`
+  const message = `${capitalize(
+    key
+  )} '${value}'' is already in use. Please choose another ${key}.`
 
   return new AppError(message, 400)
 }

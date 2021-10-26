@@ -64,10 +64,6 @@ exports.update = catchAsync(async (req, res, next) => {
   res.status(204).json({ status: 'success', data: user })
 })
 
-exports.updatePassword = catchAsync(async (req, res, next) => {
-  res.send('hey')
-})
-
 exports.delete = catchAsync(async (req, res, next) => {
   const { id } = req.params
   const user = await User.findByIdAndDelete(id)

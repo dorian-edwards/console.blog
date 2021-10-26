@@ -2,6 +2,8 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../auth'
+import Error from '../Error/Error'
+
 import styles from './EditPost.module.css'
 
 function EditPost({ history }) {
@@ -10,6 +12,7 @@ function EditPost({ history }) {
   const [summary, setSummary] = useState('')
   const [body, setBody] = useState('')
   const [author, setAuthor] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(async () => {
     try {
@@ -21,7 +24,7 @@ function EditPost({ history }) {
         if (res) setAuthor(auth.user._id)
       }
     } catch (err) {
-      console.log({ err })
+      setError(err)
     }
   }, [])
 
@@ -58,7 +61,7 @@ function EditPost({ history }) {
         history.push(`/posts/${data._id}`)
       }
     } catch (err) {
-      console.log({ err })
+      setError(err)
     }
   }
 
@@ -110,6 +113,7 @@ function EditPost({ history }) {
           <button type="submit">Create Post</button>
         </form>
       </div>
+      {error && <Error err={error} setError={setError} />}
     </div>
   )
 }

@@ -1,0 +1,11 @@
+@import url('../../App.css');
+
+.container {
+  width: 95%;
+  max-width: 500px;
+  margin: auto;
+  padding: 20px 10px 50px 10px;
+  border-radius: 5px;
+  font-size: 26px;
+  text-align: center;
+}

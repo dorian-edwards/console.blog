@@ -3,10 +3,12 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import Error from '../Error/Error'
 import styles from './PostList.module.css'
 
 function PostList({ id, access }) {
   const [posts, setPosts] = useState(null)
+  const [error, setError] = useState('')
 
   useEffect(async () => {
     try {
@@ -17,30 +19,33 @@ function PostList({ id, access }) {
       const { data } = res.data
       setPosts(data)
     } catch (err) {
-      console.log({ err })
+      setError(err)
     }
   }, [id])
 
   return (
-    <div id={styles.pst_wrapper}>
-      <ul>
-        {posts &&
-          posts.map((post) => (
-            <li className={styles.pst} key={post._id}>
-              {access ? (
-                <Link to={`/posts/${post._id}/edit`}>
-                  <h2 id={styles.ttl_link} tooltip="Edit post">
-                    {post.title}
-                  </h2>
-                </Link>
-              ) : (
-                <h2 id={styles.ttl}>{post.title}</h2>
-              )}
-              <p id={styles.bdy_prev}>{post.body.slice(0, 400)}...</p>
-              <Link to={`/posts/${post._id}`}>continue reading</Link>
-            </li>
-          ))}
-      </ul>
+    <div>
+      <div id={styles.pst_wrapper}>
+        <ul>
+          {posts &&
+            posts.map((post) => (
+              <li className={styles.pst} key={post._id}>
+                {access ? (
+                  <Link to={`/posts/${post._id}/edit`}>
+                    <h2 id={styles.ttl_link} tooltip="Edit post">
+                      {post.title}
+                    </h2>
+                  </Link>
+                ) : (
+                  <h2 id={styles.ttl}>{post.title}</h2>
+                )}
+                <p id={styles.bdy_prev}>{post.body.slice(0, 400)}...</p>
+                <Link to={`/posts/${post._id}`}>continue reading</Link>
+              </li>
+            ))}
+        </ul>
+      </div>
+      {error && <Error err={error} setError={setError} />}
     </div>
   )
 }

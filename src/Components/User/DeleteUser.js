@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useAuth } from '../../auth'
+import Error from '../Error/Error'
 import styles from './DeleteUser.module.css'
 
 const DeleteUser = ({ cancel }) => {
@@ -11,6 +12,7 @@ const DeleteUser = ({ cancel }) => {
   const auth = useAuth()
   const [confirm, setConfirm] = useState(false)
   const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
 
   const handleEmail = (e) => {
     setEmail(e.target.value)
@@ -32,7 +34,7 @@ const DeleteUser = ({ cancel }) => {
         history.push('/')
       }
     } catch (err) {
-      console.log({ err })
+      setError(err)
     }
   }
 
@@ -45,42 +47,45 @@ const DeleteUser = ({ cancel }) => {
   }, [email])
 
   return (
-    <div className={styles.container}>
-      <div className={styles.background} />
-      <div className={styles.display}>
-        <div>
-          <div id={styles.heading}>
-            To delete your profile, type your email address
-          </div>
-          <label htmlFor={styles.del}>
-            <input
-              type="text"
-              id={styles.email}
-              value={email}
-              onChange={handleEmail}
-            />
-          </label>
-          <div className={styles.btn_panel}>
-            <button
-              id={styles.del}
-              className={styles.btn}
-              disabled={!confirm}
-              type="button"
-              onClick={handleDelete}
-            >
-              Delete
-            </button>
-            <button
-              id={styles.cncl}
-              className={styles.btn}
-              type="button"
-              onClick={cancel}
-            >
-              Cancel
-            </button>
+    <div>
+      <div className={styles.container}>
+        <div className={styles.background} />
+        <div className={styles.display}>
+          <div>
+            <div id={styles.heading}>
+              To delete your profile, type your email address
+            </div>
+            <label htmlFor={styles.del}>
+              <input
+                type="text"
+                id={styles.email}
+                value={email}
+                onChange={handleEmail}
+              />
+            </label>
+            <div className={styles.btn_panel}>
+              <button
+                id={styles.del}
+                className={styles.btn}
+                disabled={!confirm}
+                type="button"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+              <button
+                id={styles.cncl}
+                className={styles.btn}
+                type="button"
+                onClick={cancel}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      {error && <Error err={error} setError={setError} />}
     </div>
   )
 }

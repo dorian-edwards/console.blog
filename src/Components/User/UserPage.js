@@ -8,6 +8,7 @@ import UserCard from './UserCard'
 import DeleteUser from './DeleteUser'
 import PostList from '../Post/PostList'
 import Loading from '../Loading/Loading'
+import Error from '../Error/Error'
 import styles from './UserPage.module.css'
 
 function UserPage() {
@@ -16,6 +17,7 @@ function UserPage() {
   const [user, setUser] = useState(null)
   const [access, setAccess] = useState(false)
   const [deletePrompt, setDeletePrompt] = useState(false)
+  const [error, setError] = useState('')
   const { id } = useParams()
 
   useEffect(async () => {
@@ -29,7 +31,7 @@ function UserPage() {
         setLoading(false)
       }
     } catch (err) {
-      console.log({ err })
+      setError(err)
     }
   }, [id])
 
@@ -66,33 +68,36 @@ function UserPage() {
         {isLoading ? (
           <Loading />
         ) : (
-          <div className={styles.container}>
-            <div id={styles.usr}>
-              {user && <UserCard user={user} />}
-              {access && (
-                <div>
-                  <ul id={styles.ctrl_panel}>
-                    <li>
-                      <Link to={`/users/${id}/edit`}>
-                        <button type="button">Edit</button>
-                      </Link>
-                    </li>
-                    <li>
-                      <button
-                        id={styles.del}
-                        type="button"
-                        onClick={toggleDelete}
-                      >
-                        Delete
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              )}
+          <div>
+            <div className={styles.container}>
+              <div id={styles.usr}>
+                {user && <UserCard user={user} />}
+                {access && (
+                  <div>
+                    <ul id={styles.ctrl_panel}>
+                      <li>
+                        <Link to={`/users/${id}/edit`}>
+                          <button type="button">Edit</button>
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          id={styles.del}
+                          type="button"
+                          onClick={toggleDelete}
+                        >
+                          Delete
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+              <div id={styles.posts}>
+                <PostList id={id} access={access} />
+              </div>
             </div>
-            <div id={styles.posts}>
-              <PostList id={id} access={access} />
-            </div>
+            {error && <Error err={error} setError={setError} />}
           </div>
         )}
       </div>

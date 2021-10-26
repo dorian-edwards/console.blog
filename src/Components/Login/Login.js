@@ -11,17 +11,9 @@ function Login({ history }) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  const processError = (err) => {
-    const arr = err.split(',')
+  const clearInput = () => {
     setEmail('')
     setPassword('')
-    setError(arr)
-  }
-
-  const clear = (i) => {
-    const copy = [...error]
-    copy.splice(i, 1)
-    setError(copy)
   }
 
   const handleEmail = (event) => {
@@ -38,14 +30,8 @@ function Login({ history }) {
       await auth.login(email, password)
       history.push('/')
     } catch (err) {
-      const { message } = err.response.data
-      if (message) {
-        processError(message)
-      } else {
-        setError('Something went wrong, please check the console')
-        // eslint-disable-next-line no-console
-        console.log({ err })
-      }
+      clearInput()
+      setError(err)
     }
   }
 
@@ -61,6 +47,7 @@ function Login({ history }) {
             id={styles.email}
             value={email}
             onChange={handleEmail}
+            required
             placeholder="email@example.com"
           />
           <label htmlFor={styles.password}>Password: </label>
@@ -69,12 +56,13 @@ function Login({ history }) {
             id={styles.password}
             value={password}
             onChange={handlePassword}
+            required
             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
           />
           <button type="submit">Login</button>
         </form>
       </div>
-      {error.length !== 0 && <Error message={error} clear={clear} />}
+      {error && <Error err={error} setError={setError} />}
     </div>
   )
 }

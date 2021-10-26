@@ -14,18 +14,10 @@ function PasswordReset({ history }) {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
 
-  const processError = (err) => {
-    const arr = err.split(',')
+  const clearInput = () => {
     setOldPassword('')
     setNewPassword('')
     setConfirmPassword('')
-    setError(arr)
-  }
-
-  const clear = (i) => {
-    const copy = [...error]
-    copy.splice(i, 1)
-    setError(copy)
   }
 
   const handleOldPassword = (e) => {
@@ -59,14 +51,8 @@ function PasswordReset({ history }) {
         history.push(`/login`)
       }
     } catch (err) {
-      const { message } = err.response.data
-      if (message) {
-        processError(message)
-      } else {
-        setError('Something went wrong, please check the console')
-        // eslint-disable-next-line no-console
-        console.log({ err })
-      }
+      clearInput()
+      setError(err)
     }
   }
 
@@ -104,7 +90,7 @@ function PasswordReset({ history }) {
           <button type="submit">Change Password</button>
         </form>
       </div>
-      {error.length !== 0 && <Error message={error} clear={clear} />}
+      {error && <Error err={error} setError={setError} />}
     </div>
   )
 }
