@@ -8,11 +8,35 @@
 
 #err li {
   background: var(--error-bkgrd);
-  text-align: center;
   font-size: 16px;
   width: 250px;
   margin: 5px auto;
   padding: 5px 10px;
   border-radius: 3px;
   color: var(--error-msg);
+  display: flex;
+  justify-content: space-between;
+}
+
+.ctrl {
+  display: flex;
+  align-items: center;
+}
+
+#err button {
+  border: none;
+  padding: 0;
+  background: none;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+#close {
+  /* display: inline-block; */
+  width: 18px;
+  background: var(--primary-light);
+  padding: 0.5px;
+  border-radius: 100%;
+  margin-left: 5px;
 }
