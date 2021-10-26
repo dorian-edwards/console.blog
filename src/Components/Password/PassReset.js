@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../../auth'
+import Error from '../Error/Error'
 import styles from './PassReset.module.css'
 
 function PasswordReset({ history }) {
@@ -11,6 +12,7 @@ function PasswordReset({ history }) {
   const [oldPassword, setOldPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [error, setError] = useState('')
 
   const handleOldPassword = (e) => {
     setOldPassword(e.target.value)
@@ -43,42 +45,55 @@ function PasswordReset({ history }) {
         history.push(`/login`)
       }
     } catch (err) {
-      console.log({ err })
+      const { message } = err.response.data
+      if (message) {
+        setError(message)
+        setNewPassword('')
+        setOldPassword('')
+        setConfirmPassword('')
+      } else {
+        setError('Something went wrong, please check the console')
+        // eslint-disable-next-line no-console
+        console.log({ err })
+      }
     }
   }
 
   return (
-    <div className={styles.container}>
-      <form id={styles.lgn_form} onSubmit={handleSubmit}>
-        <h1 id={styles.lgn_header}>Reset Password</h1>
-        <label htmlFor={styles.oldPass}>Old Password: </label>
-        <input
-          type="password"
-          id={styles.oldPass}
-          value={oldPassword}
-          required
-          onChange={handleOldPassword}
-        />
-        <label htmlFor={styles.newPass}>Password: </label>
-        <input
-          type="password"
-          id={styles.newPass}
-          value={newPassword}
-          required
-          onChange={handleNewPassword}
-        />
+    <div>
+      <div className={styles.container}>
+        <form id={styles.lgn_form} onSubmit={handleSubmit}>
+          <h1 id={styles.lgn_header}>Reset Password</h1>
+          <label htmlFor={styles.oldPass}>Old Password: </label>
+          <input
+            type="password"
+            id={styles.oldPass}
+            value={oldPassword}
+            required
+            onChange={handleOldPassword}
+          />
+          <label htmlFor={styles.newPass}>Password: </label>
+          <input
+            type="password"
+            id={styles.newPass}
+            value={newPassword}
+            required
+            onChange={handleNewPassword}
+          />
 
-        <label htmlFor={styles.cnfPass}>Confirm: </label>
-        <input
-          type="password"
-          id={styles.cnfPass}
-          value={confirmPassword}
-          required
-          onChange={handleConfirmPassword}
-        />
+          <label htmlFor={styles.cnfPass}>Confirm: </label>
+          <input
+            type="password"
+            id={styles.cnfPass}
+            value={confirmPassword}
+            required
+            onChange={handleConfirmPassword}
+          />
 
-        <button type="submit">Change Password</button>
-      </form>
+          <button type="submit">Change Password</button>
+        </form>
+      </div>
+      {error && <Error message={error} />}
     </div>
   )
 }

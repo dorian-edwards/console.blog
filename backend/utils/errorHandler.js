@@ -20,7 +20,7 @@ const handleValidationError = (err) => {
     message.push(err.errors[key].message)
   })
 
-  return new AppError(message.join(', '), 400)
+  return new AppError(message.join(','), 400)
 }
 
 const handleExpressValidatorError = (err) => {
@@ -29,7 +29,7 @@ const handleExpressValidatorError = (err) => {
     message.push(error.msg)
   })
 
-  return new AppError(message.join(', '), 400)
+  return new AppError(message.join(','), 400)
 }
 
 const handleJWTError = (err) => {
