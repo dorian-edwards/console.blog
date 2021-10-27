@@ -1,0 +1,20 @@
+{
+  "name": "console.blog",
+  "version": "1.0.0",
+  "description": "blog built with MERN stack",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "cd client/src && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buddafucofibas/console.blog.git"
+  },
+  "author": "dorian edwards",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/buddafucofibas/console.blog/issues"
+  },
+  "homepage": "https://github.com/buddafucofibas/console.blog#readme"
+}
