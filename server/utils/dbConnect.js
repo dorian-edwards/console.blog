@@ -8,8 +8,6 @@ module.exports = () => {
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
     },
     (err) => {
       // eslint-disable-next-line no-console

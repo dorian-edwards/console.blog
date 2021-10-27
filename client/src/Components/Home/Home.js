@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
@@ -40,7 +39,6 @@ function Home() {
                       <Link
                         to={`/posts/${entry._id}`}
                         className={styles.article_lnk}
-                        href=""
                       >
                         <h2 className={styles.article_ttl}>{entry.title}</h2>
                         <p className={styles.article_sum}>{entry.summary}</p>
