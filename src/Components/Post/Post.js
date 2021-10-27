@@ -8,6 +8,8 @@ import Display from '../Display/Display'
 import Loading from '../Loading/Loading'
 import Error from '../Error/Error'
 
+const baseUrl = '/api/v1/'
+
 function Post() {
   const auth = useAuth()
   const [isLoading, setLoading] = useState(true)
@@ -26,7 +28,7 @@ function Post() {
     try {
       if (auth.user) {
         const res = await axios.post(
-          `http://localhost:8080/api/v1/posts/${id}/like`,
+          `${baseUrl}posts/${id}/like`,
           {},
           { withCredentials: true }
         )
@@ -45,7 +47,7 @@ function Post() {
     e.preventDefault()
     try {
       const res = await axios.post(
-        `http://localhost:8080/api/v1/posts/${id}/comment`,
+        `${baseUrl}posts/${id}/comment`,
         { body: comment },
         { withCredentials: true }
       )
@@ -60,7 +62,7 @@ function Post() {
 
   useEffect(async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/v1/posts/${id}`, {
+      const res = await axios.get(`${baseUrl}posts/${id}`, {
         withCredentials: true,
       })
       const { data } = res.data
@@ -82,18 +84,24 @@ function Post() {
       setLikes(data.likes.length)
       setLoading(false)
     } catch (err) {
+      console.log({ err })
       setError(err)
     }
   }, [id, likes])
 
   useEffect(async () => {
-    const res = await axios.get(
-      `http://localhost:8080/api/v1/posts/${id}/comment`,
-      { withCredentials: true }
-    )
-    const { data } = res.data
-    setComments(data)
-    setCommentCount(data.length)
+    try {
+      const res = await axios.get(`${baseUrl}posts/${id}/comment`, {
+        withCredentials: true,
+      })
+      const { data } = res.data
+      if (data) {
+        setComments(data)
+        setCommentCount(data.length)
+      }
+    } catch (err) {
+      console.log({ err })
+    }
   }, [commentCount])
 
   return (

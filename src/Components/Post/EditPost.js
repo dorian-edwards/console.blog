@@ -8,6 +8,8 @@ import Error from '../Error/Error'
 import styles from './EditPost.module.css'
 import DeletePost from './DeletePost'
 
+const baseUrl = '/api/v1/'
+
 function EditPost() {
   const [isLoading, setLoading] = useState(true)
   const [deletePrompt, setDeletePrompt] = useState(false)
@@ -36,7 +38,7 @@ function EditPost() {
     try {
       const newPost = { title, summary, body }
       const res = await axios.patch(
-        `http://localhost:8080/api/v1/posts/${id}`,
+        `${baseUrl}posts/${id}`,
         { ...newPost },
         { withCredentials: true }
       )
@@ -52,11 +54,9 @@ function EditPost() {
       const formData = new FormData()
       formData.append('img', upload)
 
-      const res = await axios.patch(
-        `http://localhost:8080/api/v1/posts/${id}`,
-        formData,
-        { withCredentials: true }
-      )
+      const res = await axios.patch(`${baseUrl}posts/${id}`, formData, {
+        withCredentials: true,
+      })
 
       if (res) history.push(`/posts/${id}`)
     } catch (err) {
@@ -79,7 +79,7 @@ function EditPost() {
   }
 
   useEffect(async () => {
-    const res = await axios.get(`http://localhost:8080/api/v1/posts/${id}`)
+    const res = await axios.get(`${baseUrl}posts/${id}`)
     const { data } = res.data
     setTitle(data.title)
     setSummary(data.summary)

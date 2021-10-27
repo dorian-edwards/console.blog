@@ -14,13 +14,14 @@ function EditPost({ history }) {
   const [author, setAuthor] = useState('')
   const [error, setError] = useState('')
 
+  const baseUrl = '/api/v1/'
+
   useEffect(async () => {
     try {
       if (auth.user) {
-        const res = await axios.get(
-          `http://localhost:8080/api/v1/users/${auth.user._id}`,
-          { withCredentials: true }
-        )
+        const res = await axios.get(`${baseUrl}users/${auth.user._id}`, {
+          withCredentials: true,
+        })
         if (res) setAuthor(auth.user._id)
       }
     } catch (err) {
@@ -51,7 +52,7 @@ function EditPost({ history }) {
       }
 
       const res = await axios.post(
-        'http://localhost:8080/api/v1/posts',
+        `${baseUrl}posts`,
         { ...newPost },
         { withCredentials: true }
       )

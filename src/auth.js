@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { useState, createContext, useContext, useEffect } from 'react'
 
-const baseUrl = 'http://localhost:8080/api/v1/'
+const baseUrl = '/api/v1/'
 
 const authContext = createContext() // <= create my context object
 

@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react'
 import Loading from '../Loading/Loading'
 import styles from './EditUser.module.css'
 
+const baseUrl = '/api/v1/'
+
 function EditUser() {
   const [isLoading, setLoading] = useState(true)
   const [img, setImg] = useState(null)
@@ -20,7 +22,7 @@ function EditUser() {
 
   useEffect(async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/v1/users/${id}`, {
+      const res = await axios.get(`${baseUrl}users/${id}`, {
         withCredentials: true,
       })
       const { data } = res.data
@@ -59,11 +61,9 @@ function EditUser() {
       const formData = new FormData()
       formData.append('img', upload)
 
-      const res = await axios.patch(
-        `http://localhost:8080/api/v1/users/${id}`,
-        formData,
-        { withCredentials: true }
-      )
+      const res = await axios.patch(`${baseUrl}users/${id}`, formData, {
+        withCredentials: true,
+      })
       if (res) history.push(`/users/${id}`)
     } catch (err) {
       console.log({ err })
@@ -82,7 +82,7 @@ function EditUser() {
       }
 
       const res = await axios.patch(
-        `http://localhost:8080/api/v1/users/${id}`,
+        `${baseUrl}users/${id}`,
         { ...newUser },
         { withCredentials: true }
       )

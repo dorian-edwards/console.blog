@@ -12,7 +12,7 @@ process.on('uncaughtException', (err) => {
 const app = require('./app')
 const dbConnect = require('./utils/dbConnect')
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 
 dbConnect()
 

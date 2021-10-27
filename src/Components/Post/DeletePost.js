@@ -6,6 +6,8 @@ import { useAuth } from '../../auth'
 import Error from '../Error/Error'
 import styles from './DeletePost.module.css'
 
+const baseUrl = '/api/v1/'
+
 const DeletePost = ({ cancel }) => {
   const { id } = useParams()
   const history = useHistory()
@@ -16,10 +18,9 @@ const DeletePost = ({ cancel }) => {
     try {
       // eslint-disable-next-line no-undef
       const body = document.querySelector('body')
-      const res = await axios.delete(
-        `http://localhost:8080/api/v1/posts/${id}`,
-        { withCredentials: true }
-      )
+      const res = await axios.delete(`${baseUrl}posts/${id}`, {
+        withCredentials: true,
+      })
 
       if (res) {
         body.style.overflow = 'auto'

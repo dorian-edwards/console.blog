@@ -6,14 +6,14 @@ import Loading from '../Loading/Loading'
 import styles from './Home.module.css'
 import User from '../User/User'
 
-const baseUrl = `http://localhost:8080/api/v1/posts`
+const baseUrl = '/api/v1/'
 
 function Home() {
   const [posts, setPosts] = useState(null)
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get(baseUrl, { withCredentials: true }).then((res) => {
+    axios.get(`${baseUrl}posts`, { withCredentials: true }).then((res) => {
       const { data } = res.data
       setPosts(data)
       setLoading(false)

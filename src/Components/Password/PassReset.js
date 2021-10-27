@@ -6,6 +6,8 @@ import { useAuth } from '../../auth'
 import Error from '../Error/Error'
 import styles from './PassReset.module.css'
 
+const baseUrl = '/api/v1/'
+
 function PasswordReset({ history }) {
   const auth = useAuth()
   const { id } = useParams()
@@ -41,11 +43,9 @@ function PasswordReset({ history }) {
         confirmPassword,
       }
 
-      const res = await axios.patch(
-        `http://localhost:8080/api/v1/users/${id}`,
-        user,
-        { withCredentials: true }
-      )
+      const res = await axios.patch(`${baseUrl}users/${id}`, user, {
+        withCredentials: true,
+      })
       if (res) {
         await auth.signOut()
         history.push(`/login`)

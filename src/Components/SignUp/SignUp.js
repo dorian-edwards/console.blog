@@ -7,6 +7,8 @@ import { useAuth } from '../../auth'
 import Error from '../Error/Error'
 import styles from './SignUp.module.css'
 
+const baseUrl = '/api/v1/'
+
 function SignUp({ history }) {
   const auth = useAuth()
   const [firstName, setFirstName] = useState('')
@@ -48,7 +50,7 @@ function SignUp({ history }) {
         confirmPassword,
       }
       const res = await axios.post(
-        `http://localhost:8080/api/v1/users`,
+        `${baseUrl}users`,
         { ...newUser },
         { withCredentials: true }
       )

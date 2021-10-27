@@ -6,6 +6,8 @@ import { useAuth } from '../../auth'
 import Error from '../Error/Error'
 import styles from './DeleteUser.module.css'
 
+const baseUrl = '/api/v1/'
+
 const DeleteUser = ({ cancel }) => {
   const { id } = useParams()
   const history = useHistory()
@@ -22,12 +24,9 @@ const DeleteUser = ({ cancel }) => {
     try {
       // eslint-disable-next-line no-undef
       const body = document.querySelector('body')
-      const res = await axios.delete(
-        `http://localhost:8080/api/v1/users/${id}`,
-        {
-          withCredentials: true,
-        }
-      )
+      const res = await axios.delete(`${baseUrl}users/${id}`, {
+        withCredentials: true,
+      })
       if (res) {
         auth.signOut()
         body.style.overflow = 'auto'

@@ -6,16 +6,17 @@ import { Link } from 'react-router-dom'
 import Error from '../Error/Error'
 import styles from './PostList.module.css'
 
+const baseUrl = '/api/v1/'
+
 function PostList({ id, access }) {
   const [posts, setPosts] = useState(null)
   const [error, setError] = useState('')
 
   useEffect(async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:8080/api/v1/users/${id}/posts`,
-        { withCredentials: true }
-      )
+      const res = await axios.get(`${baseUrl}users/${id}/posts`, {
+        withCredentials: true,
+      })
       const { data } = res.data
       setPosts(data)
     } catch (err) {

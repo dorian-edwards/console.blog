@@ -11,6 +11,8 @@ import Loading from '../Loading/Loading'
 import Error from '../Error/Error'
 import styles from './UserPage.module.css'
 
+const baseUrl = '/api/v1/'
+
 function UserPage() {
   const auth = useAuth()
   const [isLoading, setLoading] = useState(true)
@@ -22,7 +24,7 @@ function UserPage() {
 
   useEffect(async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/v1/users/${id}`, {
+      const res = await axios.get(`${baseUrl}users/${id}`, {
         withCredentials: true,
       })
       const { data } = res.data
