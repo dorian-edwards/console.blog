@@ -11,6 +11,8 @@ const postRouter = require('./routes/post.routes')
 const errorHandler = require('./utils/errorHandler')
 const AppError = require('./utils/appError')
 
+const __currentDirectory = path.resolve()
+
 const app = express()
 
 app.use(helmet())
@@ -28,9 +30,9 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }))
 
 if (process.env.ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client', 'public')))
+  app.use(express.static(path.join(__currentDirectory, 'client', 'build')))
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'public', 'index.html'))
+    res.sendFile(path.join(__currentDirectory, 'client', 'build', 'index.html'))
   })
 }
 app.use('/api/v1/', authRouter)
