@@ -1,32 +1,37 @@
+// new ish \/
+const cloudinary = require('cloudinary').v2
 const multer = require('multer')
-const path = require('path')
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
 const catchAsync = require('./catchAsync')
+// new ish /\
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/assets/uploads')
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${req.params.id}-${Date.now()}${path.extname(file.originalname)}`)
+// new ish \/
+const { CLOUDINARY_HOST, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
+  process.env
+cloudinary.config({
+  cloud_name: CLOUDINARY_HOST,
+  api_key: CLOUDINARY_API_KEY,
+  api_secret: CLOUDINARY_API_SECRET,
+})
+
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'uploads',
+    format: async () => 'jpg',
+    public_id: (req, file) => `${req.params.id}-${Date.now()}`,
   },
 })
 
-const fileFilter = (req, file, cb) => {
-  const acceptedFiles = ['.avif', '.jpeg', '.jpg', '.png', '.webp']
-  const ext = path.extname(file.originalname)
-  if (acceptedFiles.includes(ext)) return cb(null, true)
-  cb(null, false)
-}
-
 module.exports = (name) =>
   catchAsync(async (req, res, next) => {
-    const upload = multer({ storage, fileFilter }).single(name)
-    upload(req, res, (err) => {
-      if (err instanceof multer.MulterError) {
-        console.log('Multer error: ', err)
-      } else if (err) {
-        console.log('Normal error: ', err)
+    const parser = multer({ storage }).single(name)
+    parser(req, res, (err) => {
+      if (err) {
+        console.log({ err })
+      } else {
+        next()
       }
-      next()
     })
   })
+// new ish /\
