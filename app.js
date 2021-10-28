@@ -27,16 +27,22 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
-app.get('*', (req, res, next) => {
-  const test = path.resolve(__dirname, './client/build')
-  res.send({
-    status: 'success',
-    path: test,
-  })
-})
+// app.get('*', (req, res, next) => {
+//   const test = path.resolve(__dirname, './client/build')
+//   res.send({
+//     status: 'success',
+//     path: test,
+//   })
+// })
+app.use(express.static(path.resolve(__dirname, './client/build')))
 app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
+
+// eslint-disable-next-line prefer-arrow-callback
+app.get('*', function (request, response) {
+  response.sendFile(path.resolve(__dirname, './client/build', 'index.html'))
+})
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't ${req.method} ${req.originalUrl}`, 404))
