@@ -19,9 +19,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: middle;
+  object-position: center;
   position: relative;
-  opacity: 30%;
+  opacity: 1;
 }
 
 #title {

@@ -13,11 +13,20 @@ const AppError = require('./utils/appError')
 
 const app = express()
 
-app.use(helmet())
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+)
 app.use(morgan('tiny'))
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://consoledotblog.netlify.app'],
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:5000',
+      'https://consoledotblog.netlify.app',
+      'https://console-dot-blog.herokuapp.com/',
+    ],
     credentials: true,
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type, Accept'],
   })
