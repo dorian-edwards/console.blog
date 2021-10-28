@@ -11,6 +11,7 @@ const postRouter = require('./routes/post.routes')
 const errorHandler = require('./utils/errorHandler')
 const AppError = require('./utils/appError')
 
+const __currentDirectory = path.resolve()
 const app = express()
 
 app.use(helmet())
@@ -32,11 +33,13 @@ app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
 
 if (process.env.NODE_ENV === 'production') {
-  // set static folder
-  app.use(express.static('client/build'))
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-  })
+  app.use(express.static(path.join(__currentDirectory, '/client/build')))
+
+  app.get('*', (req, res) =>
+    res.sendFile(
+      path.resolve(__currentDirectory, 'client', 'build', 'index.html')
+    )
+  )
 }
 
 app.all('*', (req, res, next) => {
