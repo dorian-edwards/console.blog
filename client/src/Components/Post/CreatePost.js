@@ -44,9 +44,9 @@ function EditPost({ history }) {
     e.preventDefault()
     try {
       const newPost = {
-        title,
-        summary,
-        body,
+        title: title.trim(),
+        summary: summary.trim(),
+        body: body.trim(),
         author,
       }
 
