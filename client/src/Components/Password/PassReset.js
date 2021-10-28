@@ -3,10 +3,9 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../../auth'
+import baseUrl from '../../url'
 import Error from '../Error/Error'
 import styles from './PassReset.module.css'
-
-const baseUrl = '/api/v1/'
 
 function PasswordReset({ history }) {
   const auth = useAuth()

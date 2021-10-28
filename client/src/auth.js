@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import axios from 'axios'
 import { useState, createContext, useContext, useEffect } from 'react'
-
-const baseUrl = '/api/v1/'
+import baseUrl from './url'
 
 const authContext = createContext() // <= create my context object
 

@@ -1,11 +1,10 @@
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import baseUrl from '../../url'
 import Loading from '../Loading/Loading'
 import styles from './Home.module.css'
 import User from '../User/User'
-
-const baseUrl = '/api/v1/'
 
 function Home() {
   const [posts, setPosts] = useState(null)

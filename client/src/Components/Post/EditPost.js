@@ -3,12 +3,11 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import baseUrl from '../../url'
 import Loading from '../Loading/Loading'
 import Error from '../Error/Error'
 import styles from './EditPost.module.css'
 import DeletePost from './DeletePost'
-
-const baseUrl = '/api/v1/'
 
 function EditPost() {
   const [isLoading, setLoading] = useState(true)

@@ -2,13 +2,12 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useAuth } from '../../auth'
+import baseUrl from '../../url'
 import styles from './Post.module.css'
 import User from '../User/User'
 import Display from '../Display/Display'
 import Loading from '../Loading/Loading'
 import Error from '../Error/Error'
-
-const baseUrl = '/api/v1/'
 
 function Post() {
   const auth = useAuth()
@@ -84,6 +83,7 @@ function Post() {
       setLikes(data.likes.length)
       setLoading(false)
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log({ err })
       setError(err)
     }
@@ -100,6 +100,7 @@ function Post() {
         setCommentCount(data.length)
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log({ err })
     }
   }, [commentCount])

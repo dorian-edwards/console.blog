@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { useAuth } from '../../auth'
+import baseUrl from '../../url'
 import Error from '../Error/Error'
 import styles from './DeleteUser.module.css'
-
-const baseUrl = '/api/v1/'
 
 const DeleteUser = ({ cancel }) => {
   const { id } = useParams()

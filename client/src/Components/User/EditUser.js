@@ -4,10 +4,9 @@
 import { Link, useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import baseUrl from '../../url'
 import Loading from '../Loading/Loading'
 import styles from './EditUser.module.css'
-
-const baseUrl = '/api/v1/'
 
 function EditUser() {
   const [isLoading, setLoading] = useState(true)

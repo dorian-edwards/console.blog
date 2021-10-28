@@ -3,10 +3,9 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import baseUrl from '../../url'
 import Error from '../Error/Error'
 import styles from './PostList.module.css'
-
-const baseUrl = '/api/v1/'
 
 function PostList({ id, access }) {
   const [posts, setPosts] = useState(null)

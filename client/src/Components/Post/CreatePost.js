@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../auth'
+import baseUrl from '../../url'
 import Error from '../Error/Error'
 
 import styles from './EditPost.module.css'
@@ -13,8 +14,6 @@ function EditPost({ history }) {
   const [body, setBody] = useState('')
   const [author, setAuthor] = useState('')
   const [error, setError] = useState('')
-
-  const baseUrl = '/api/v1/'
 
   useEffect(async () => {
     try {

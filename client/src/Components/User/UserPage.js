@@ -4,14 +4,13 @@ import axios from 'axios'
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../auth'
+import baseUrl from '../../url'
 import UserCard from './UserCard'
 import DeleteUser from './DeleteUser'
 import PostList from '../Post/PostList'
 import Loading from '../Loading/Loading'
 import Error from '../Error/Error'
 import styles from './UserPage.module.css'
-
-const baseUrl = '/api/v1/'
 
 function UserPage() {
   const auth = useAuth()

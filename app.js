@@ -18,7 +18,7 @@ app.use(helmet())
 app.use(morgan('tiny'))
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://consoledotblog.netlify.app'],
     credentials: true,
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type, Accept'],
   })
@@ -31,16 +31,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
-
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__currentDirectory, '/client/build')))
-
-//   app.get('*', (req, res) =>
-//     res.sendFile(
-//       path.resolve(__currentDirectory, 'client', 'build', 'index.html')
-//     )
-//   )
-// }
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't ${req.method} ${req.originalUrl}`, 404))
