@@ -27,15 +27,18 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }))
 
-app.use(express.static('client/build'))
-
 app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join('client/build', 'index.html'))
-})
+if (process.env.NODE_ENV === 'production') {
+  // set static folder
+  app.use(express.static('client/build'))
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
+
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't ${req.method} ${req.originalUrl}`, 404))
 })
