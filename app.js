@@ -32,15 +32,15 @@ app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__currentDirectory, '/client/build')))
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__currentDirectory, '/client/build')))
 
-  app.get('*', (req, res) =>
-    res.sendFile(
-      path.resolve(__currentDirectory, 'client', 'build', 'index.html')
-    )
-  )
-}
+//   app.get('*', (req, res) =>
+//     res.sendFile(
+//       path.resolve(__currentDirectory, 'client', 'build', 'index.html')
+//     )
+//   )
+// }
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't ${req.method} ${req.originalUrl}`, 404))
