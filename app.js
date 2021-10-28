@@ -11,7 +11,6 @@ const postRouter = require('./routes/post.routes')
 const errorHandler = require('./utils/errorHandler')
 const AppError = require('./utils/appError')
 
-const __currentDirectory = path.resolve()
 const app = express()
 
 app.use(helmet())
@@ -28,6 +27,13 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
+app.get('*', (req, res, next) => {
+  const test = path.resolve(__dirname, './client/build')
+  res.send({
+    status: 'success',
+    path: test,
+  })
+})
 app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
