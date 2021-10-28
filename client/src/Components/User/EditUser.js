@@ -186,7 +186,7 @@ function EditUser() {
                     />
                   </div>
                   <button type="submit">Submit Changes</button>
-                  <Link to={`/users/${id}/reset`}>
+                  <Link id={styles.pass_reset} to={`/users/${id}/reset`}>
                     <button type="button">Change Password</button>
                   </Link>
                 </form>

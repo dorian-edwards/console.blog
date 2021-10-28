@@ -86,6 +86,10 @@
   resize: none;
 }
 
+#pass_reset {
+  text-decoration: none;
+}
+
 #upld {
   cursor: pointer;
   position: absolute;
