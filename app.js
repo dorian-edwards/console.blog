@@ -41,11 +41,10 @@ app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
 
 // eslint-disable-next-line prefer-arrow-callback
-app.get('/*', function (request, response) {
+app.get('/*', function (req, res) {
   const test = path.resolve(__dirname, './client/build', 'index.html')
-  // eslint-disable-next-line no-console
-  console.log(test)
-  response.sendFile(path.resolve(__dirname, './client/build', 'index.html'))
+  // res.sendFile(path.resolve(__dirname, './client/build', 'index.html'))
+  res.send({ path: test })
 })
 
 app.all('*', (req, res, next) => {
