@@ -10,7 +10,6 @@ const signToken = (res, user) => {
     httpOnly: true,
     sameSite: 'lax',
     secure: true,
-    domain: 'https://consoledotblog.netlify.app',
   })
 
   return token
