@@ -27,6 +27,12 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }))
 
+if (process.env.ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client', 'public')))
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'public', 'index.html'))
+  })
+}
 app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
