@@ -34,13 +34,17 @@ app.use(express.urlencoded({ extended: true }))
 //     path: test,
 //   })
 // })
+
 app.use(express.static(path.resolve(__dirname, './client/build')))
 app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
 
 // eslint-disable-next-line prefer-arrow-callback
-app.get('*', function (request, response) {
+app.get('/*', function (request, response) {
+  const test = path.resolve(__dirname, './client/build', 'index.html')
+  // eslint-disable-next-line no-console
+  console.log(test)
   response.sendFile(path.resolve(__dirname, './client/build', 'index.html'))
 })
 
