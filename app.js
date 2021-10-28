@@ -29,13 +29,14 @@ app.use(express.urlencoded({ extended: false }))
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client', 'build')))
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-  })
 }
+
 app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+})
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't ${req.method} ${req.originalUrl}`, 404))
 })
