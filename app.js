@@ -27,30 +27,15 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
-// app.get('*', (req, res, next) => {
-//   const test = path.resolve(__dirname, './client/build')
-//   res.send({
-//     status: 'success',
-//     path: test,
-//   })
-// })
+app.use(express.static('./client/build'))
 
-app.use(express.static(path.resolve(__dirname, './client/build')))
 app.use('/api/v1/', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/posts', postRouter)
 
 // eslint-disable-next-line prefer-arrow-callback
 app.get('*', function (req, res) {
-  const test = path.resolve(__dirname, './client/build', 'index.html')
-  res.sendFile(
-    path.resolve(__dirname, './client/build', 'index.html'),
-    (err) => {
-      if (err) {
-        console.log({ err })
-      }
-    }
-  )
+  res.sendFile(path.join(__dirname, './client/build', 'index.html'))
 })
 
 app.all('*', (req, res, next) => {
