@@ -15,7 +15,7 @@ const Footer = () => (
           </CustomLink>
         </li>
         <li>
-          <CustomLink to="https://www.linkedin.com/in/dorian-edwards-503136211/">
+          <CustomLink to="https://www.linkedin.com/in/dorian-edwards/">
             <img src={linkedin} alt="linkedin logo" />
           </CustomLink>
         </li>
